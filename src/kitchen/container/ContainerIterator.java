@@ -1,10 +1,12 @@
 
 import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * 
  */
-public class ContainerIterator {
+public class ContainerIterator implements Iterator<Ingredient>{
 
 
     /**
