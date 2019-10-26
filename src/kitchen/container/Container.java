@@ -105,6 +105,11 @@ public abstract class Container {
         }
         return ans;
     }
+    
+    /**
+     * @return
+     */
+    public ContainerIterator Iterator() { return new ContainerIterator(ingredients); }
 
     /**
      * @return
