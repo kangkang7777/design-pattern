@@ -82,7 +82,7 @@ public abstract class Container {
             while(count>0)
             {
                 count--;
-                temp.get(count).setState(-1);
+                temp.get(count).setCooked();;
             }
             return true;
         }

@@ -16,8 +16,7 @@ public class Stale implements State {
      * @return
      */
     public String toString() {
-        // TODO implement here
-        return "腐烂";
+        return "??";
     }
 
     /**

@@ -16,8 +16,7 @@ public class Fresh implements State {
      * @return
      */
     public String toString() {
-        // TODO implement here
-        return "新鲜";
+        return "??";
     }
 
     /**

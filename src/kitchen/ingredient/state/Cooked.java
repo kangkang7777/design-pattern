@@ -16,8 +16,7 @@ public class Cooked implements State {
      * @return
      */
     public String toString() {
-        // TODO implement here
-        return "熟";
+        return "??";
     }
 
     /**
@@ -30,6 +29,6 @@ public class Cooked implements State {
      * @param ingredient 
      * @return
      */
-    public abstract boolean isStale(Ingredient ingredient){return false;}
+    public boolean isStale(Ingredient ingredient){return false;}
 
 }

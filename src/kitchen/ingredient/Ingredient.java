@@ -13,32 +13,48 @@ public abstract class Ingredient implements TimeObserver {
      * Default constructor
      */
     public Ingredient() {
-        state = 100;
+        fresh = 100;
+        state = new Fresh();
         Time.getInstance().addObserver(this);
     }
 
     /**
+     * 新鲜度
      * 
      */
-    protected int state;
+    protected int fresh;
 
     /**
      * 食材状态
      * 
+     */
+    protected State state;
+
+    /**
+     * 是否可用
+     * 
      * @return 新鲜为ture，其他为false。
      */
     public boolean isState() {
-        return state>0;
+        return !(state.isStale(this) || state.isCooked(this));
     }
 
     /**
-     * 设定状态
+     * 设定已用
      * 
      */
-    public boolean setState(int num) {
-        state = num;
+    public void setCooked() {
+        state = new Cooked();
     }
-    
+
+    /**
+     * 设定腐烂
+     * 
+     */
+    public void setStale() {
+        state = new Stale();
+    }
+
     /**
      * @return
      */

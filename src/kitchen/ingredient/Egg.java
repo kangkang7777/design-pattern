@@ -14,6 +14,12 @@ public class Egg extends Ingredient {
     }
 
     /**
+     * 腐烂速度
+     * 
+     */
+    private int staleSpeed = 1;
+
+    /**
      * @return
      */
     public String getName(){
@@ -29,11 +35,17 @@ public class Egg extends Ingredient {
     }
 
     /**
-     * 每次减1
+     * 时间更新，进行腐烂
+     * 
      */
     public void update()
     {
-        state -= 1;
+        if(isState())
+        {
+            fresh -= staleSpeed;
+            if(fresh<=0)
+                setStale();
+        }
     }
 
 }
