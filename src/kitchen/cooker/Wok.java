@@ -11,6 +11,11 @@ public class Wok extends Cooker {
      * Default constructor
      */
     public Wok() {
+
+        //设置优先级
+        this.priority=Cooker.SECOND;
+       
+
         availableTypes = new ArrayList<>(Arrays.asList(         //todo undefined
                 IngredientType.UNDEFINED));
         name = "锅";

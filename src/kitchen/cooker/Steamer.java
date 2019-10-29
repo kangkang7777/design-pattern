@@ -10,6 +10,11 @@ public class Steamer extends Cooker {
      * Default constructor
      */
     public Steamer() {
+
+        //设置优先级
+        this.priority=Cooker.SECOND;
+        
+
         availableTypes = new ArrayList<>(Arrays.asList(         //包子、饺子
                 IngredientType.BAOZI,
                 IngredientType.DUMPLING));

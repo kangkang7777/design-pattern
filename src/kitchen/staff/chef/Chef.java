@@ -13,23 +13,8 @@ public class Chef{
      * Chef的成员变量，接收厨师所要处理的
      * 商品和进行烹饪时所使用的厨具
      */
-    protected ArrayList<Cooker>cookers=new ArrayList<>();
+    protected ArrayList<Cooker>cooker=new ArrayList<>();
     protected ArrayList<Dish>dishs=new ArrayList<>();
-    protected HashMap<Integer,Cooker> cookerMap =new HashMap<>();
-
-    /**
-     * 将厨具添加到HashMap
-     */
-    public void addCookerMap(Cooker cooker){
-        cookerMap.add(cooker.getPriority(),cooker);        
-    }
-
-    /**
-     * 获取cookerMap
-     */
-    public HashMap<Integer,Cooker> getCookerMap(){
-        return this.cookerMap;
-    }
 
     /**
      * Default constructor
@@ -174,7 +159,6 @@ public class Chef{
      * @param dish 商品
      */
     public void processMerch(Dish dish){
-        System.out.println("厨师接到了新单");
         Chef chef=Chef.getInstance();
         IngredienType type=chef.transferToIngredientType(dish);
         Ingredient ingredient=chef.transferToIngredient(dish);
@@ -189,12 +173,9 @@ public class Chef{
          * 此处可进行责任链模式编写
          */
         Cooker cooker= chef.buildCooker(dish); 
-        if(isTrue){
-        System.out.println("厨师成功获得原材料") ;    
+        if(isTrue)      
         cooker.cook(ingredient);
-        }
-        else
-        System.out.println("厨师获得原材料失败");
-    }
+
     
+    }
 }
