@@ -1,4 +1,6 @@
-package magickitchen.merch;
+package merch;
+
+import order.consumer.Visitor;
 
 public class MaboTofu implements DishBuilder{
     private Dish ndish;
@@ -30,5 +32,9 @@ public class MaboTofu implements DishBuilder{
     @Override
     public Dish getDish(){
         return ndish;
+    }
+    @Override
+    public void accept(Visitor visitor){
+        ndish.accept(visitor);
     }
 }

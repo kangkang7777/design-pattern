@@ -1,15 +1,17 @@
-package kitchen.staff.waiter;
+package staff;
 
-import kitchen.order.*;//引入订单类
-import kitchen.staff.chef;
-import kitchen.customer;//引入客人类
-import order.consumer.NormalConsumer;
+import merch.Dish;
+import order.*;//引入订单类
+import order.consumer.Visitor;
+import staff.chef;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Waiter{
     private Chef mChef;
     private List<Customer> mCustomers;
+    private ArrayList<Dish> dishes;
     private List<Order> mOrders;
 
     //在厨师和客人类内部声明一个Waiter
@@ -30,7 +32,7 @@ public class Waiter{
     }
     //为客人服务的方法
     //客人点单完成后使用
-    public void serve(Customer customer){
+    public void serve(Visitor visitor){
         Order order = customer.getOrder();
         mOrders.add(order);
 
@@ -41,5 +43,20 @@ public class Waiter{
     public void informChef(Order order){
         /*通知厨师的方法
           或是对订单进一步处理的方法 */
+    }
+
+    public void attach(Object object){
+        dishes.add(object);
+    }
+    public void detach(Dish dish){
+        if (dishes.indexOf(dish) != -1){
+            dishes.remove(dish);
+        }
+    }
+    public void accept(Visitor visitor){
+        for (Dish dish:dishes){
+            dish.accept(visitor);
+
+        }
     }
 }

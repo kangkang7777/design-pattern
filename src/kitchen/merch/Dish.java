@@ -1,4 +1,6 @@
-package magickitchen.merch;
+package merch;
+
+import order.consumer.Visitor;
 
 import java.util.ArrayList;
 
@@ -43,6 +45,9 @@ public class Dish {
     }
     public void setCooker(String cooker) {
         this.cooker = cooker;
+    }
+    public void accept(Visitor visitor){
+        visitor.visit(this);
     }
     //可能之后给厨师使用的接口，目前测试用
     //public String show(){

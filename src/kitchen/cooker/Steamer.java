@@ -1,4 +1,4 @@
-package kitchen.cooker;
+package cooker;
 
 import java.util.*;
 /**

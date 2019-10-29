@@ -1,4 +1,4 @@
-package magickitchen.merch;
+package merch;
 
 import java.util.ArrayList;
 

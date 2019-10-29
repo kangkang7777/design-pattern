@@ -1,6 +1,8 @@
-package magickitchen.merch;
+package merch;
 
-public class StirFriedVegetables implements DishBuilder{
+import order.consumer.Visitor;
+
+public class StirFriedVegetables implements DishBuilder {
     private Dish ndish;
 
     public StirFriedVegetables(){
@@ -30,5 +32,9 @@ public class StirFriedVegetables implements DishBuilder{
     @Override
     public Dish getDish(){
         return ndish;
+    }
+    @Override
+    public void accept(Visitor visitor){
+        ndish.accept(visitor);
     }
 }

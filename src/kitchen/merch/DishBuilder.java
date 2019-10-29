@@ -1,6 +1,6 @@
-package magickitchen.merch;
+package merch;
 
-import order.consumer.Consumer;
+import order.consumer.Visitor;
 
 public interface DishBuilder {
     //创建一个抽象的菜品生成过程的Builder类
@@ -10,5 +10,5 @@ public interface DishBuilder {
     void setMaterial();
     void setCooker();
     Dish getDish();
-    void provide(Consumer consumer);
+    void accept(Visitor visitor);
 }

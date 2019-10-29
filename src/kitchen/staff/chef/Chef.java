@@ -1,12 +1,12 @@
-package kitchen.staff.chef;
+package staff.chef;
 import ingredient.*;
 
 import java.util.ArrayList;
 
 import container.*;
 import container.Fridge;
-import magickitchen.merch.Dish;
-import kitchen.cooker.*;
+import merch.Dish;
+import cooker;
 import staff.chef.Adapter;
 
 public class Chef{

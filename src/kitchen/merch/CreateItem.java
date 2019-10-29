@@ -1,6 +1,6 @@
-package magickitchen.merch;
+package merch;
 
-import magickitchen.staff.chef.*;
+import staff.chef.*;
 import java.util.ArrayList;
 
 public class CreateItem {
