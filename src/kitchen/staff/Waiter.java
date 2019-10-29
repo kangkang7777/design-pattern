@@ -1,18 +1,19 @@
 package staff;
 
-import merch.Dish;
+import merch.*;
 import order.*;//引入订单类
 import order.consumer.Visitor;
-import staff.chef;
+import staff.chef.Chef;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Waiter{
     private Chef mChef;
-    private List<Customer> mCustomers;
-    private ArrayList<Dish> dishes;
+    private List<Visitor> mCustomers;
+    private ArrayList<String> dishes;
     private List<Order> mOrders;
+    private double totalPrice = 0;
 
     //在厨师和客人类内部声明一个Waiter
     //登记厨师和客人
@@ -20,7 +21,7 @@ public class Waiter{
         mChef = chef;
         chef.setWaiter(this);
     }
-    public void register(Customer customer){
+    public void register(Visitor customer){
         mCustomers.add(customer);
         customer.setWaiter(this);
     }
@@ -45,18 +46,62 @@ public class Waiter{
           或是对订单进一步处理的方法 */
     }
 
-    public void attach(Object object){
-        dishes.add(object);
+    /**
+     * 顾客点菜
+     * @param dish
+     */
+    public void attach(String dish){
+        dishes.add(dish);
     }
-    public void detach(Dish dish){
+    public void detach(String dish){
         if (dishes.indexOf(dish) != -1){
             dishes.remove(dish);
         }
     }
-    public void accept(Visitor visitor){
-        for (Dish dish:dishes){
-            dish.accept(visitor);
 
+    /**
+     * 顾客选菜的操作可以看作Visitor模式
+     * @param visitor 顾客
+     */
+    public void accept(Visitor visitor){
+        for (String dish:dishes){
+            switch (dish){
+                case "BoiledFish":
+                    BoiledFish boiledFish = new BoiledFish();
+                    boiledFish.accept(visitor);
+                    totalPrice += boiledFish.getDish().getPrice();
+                    break;
+                case "EggSoup":
+                    EggSoup eggSoup = new EggSoup();
+                    eggSoup.accept(visitor);
+                    totalPrice += eggSoup.getDish().getPrice();
+                    break;
+                case "MaboTofu":
+                    MaboTofu maboTofu = new MaboTofu();
+                    maboTofu.accept(visitor);
+                    totalPrice += maboTofu.getDish().getPrice();
+                    break;
+                case "SteamedBread":
+                    SteamedBread steamedBread = new SteamedBread();
+                    steamedBread.accept(visitor);
+                    totalPrice += steamedBread.getDish().getPrice();
+                    break;
+                case "StirFriedVegetables":
+                    StirFriedVegetables stirFriedVegetables = new StirFriedVegetables();
+                    stirFriedVegetables.accept(visitor);
+                    totalPrice += stirFriedVegetables.getDish().getPrice();
+                    break;
+                default:break;
+            }
         }
+        System.out.println("totalPrice:" + totalPrice);
+    }
+
+    /**
+     * 返回点单
+     * @return 一个String list
+     */
+    public ArrayList<String> getOrder(){
+        return dishes;
     }
 }

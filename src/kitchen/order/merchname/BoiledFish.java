@@ -1,4 +1,4 @@
-package kitchen.order.merchname;
+package order.merchname;
 import java.util.List;
 //单品水煮鱼
 public class BoiledFish implements MerchName{

@@ -1,4 +1,4 @@
-package kitchen.order.merchname;
+package order.merchname;
 
 import java.util.List;
 
