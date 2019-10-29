@@ -3,6 +3,7 @@ package kitchen.staff.waiter;
 import kitchen.order.*;//引入订单类
 import kitchen.staff.chef;
 import kitchen.customer;//引入客人类
+import order.consumer.NormalConsumer;
 
 import java.util.List;
 

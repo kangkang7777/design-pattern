@@ -7,14 +7,16 @@ import container.*;
 import container.Fridge;
 import magickitchen.merch.Dish;
 import kitchen.cooker.*;
+import staff.chef.Adapter;
 
 public class Chef{
     /**
      * Chef的成员变量，接收厨师所要处理的
      * 商品和进行烹饪时所使用的厨具
      */
-    protected ArrayList<Cooker>cooker=new ArrayList<>();
-    protected ArrayList<Dish>dishs=new ArrayList<>();
+    Adapter adapter = new Adapter();
+    protected ArrayList<Cooker>cooker=adapter.getCookers();
+    protected ArrayList<Dish>dishes=adapter.getDishes();
 
     /**
      * Default constructor
