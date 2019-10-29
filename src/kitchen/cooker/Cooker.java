@@ -9,6 +9,26 @@ import java.util.ArrayList;
 public abstract class Cooker {
 
     /**
+     * 责任链用到的参数，给厨具排序
+     * Steamer:FIRST
+     * RiceCooker:SECOND
+     * Wok:THIRD
+     */
+    public static int FIRST=1;
+    public static int SECOND=2;
+    public static int THIRD=3;
+    protected int priority;   
+
+    /**
+     * 获取厨具的优先级
+     * @return int
+     */
+    public int getPriority(){
+        return this.priority;
+    }
+
+
+    /**
      * Default constructor
      */
     public Cooker() {

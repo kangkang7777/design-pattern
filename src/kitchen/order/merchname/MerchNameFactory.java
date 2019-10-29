@@ -2,7 +2,7 @@ package order.merchname;
 import java.util.List;
 
 public class MerchNameFactory {
-    public List<String> getMerchName(String name){
+    static public List<String> getMerchName(String name){
         MerchName merchName=null;
         switch(name){
             case "水煮鱼":
