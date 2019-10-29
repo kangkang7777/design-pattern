@@ -13,7 +13,7 @@ public class Dish {
     private String material;
     //商品使用的厨具
     private String cooker;
-
+    //创建和调用的函数
     public String getName(){
         return name;
     }
@@ -44,8 +44,8 @@ public class Dish {
     public void setCooker(String cooker) {
         this.cooker = cooker;
     }
-
-    public String show(){
-        return "菜名:"+getName()+" 餐具:"+getPack()+" 价格:"+getPrice()+" 原料:"+getMaterial()+" 厨具:"+getCooker();
-    }
+    //可能之后给厨师使用的接口，目前测试用
+    //public String show(){
+    //    return "菜名:"+getName()+" 餐具:"+getPack()+" 价格:"+getPrice()+" 原料:"+getMaterial()+" 厨具:"+getCooker();
+    //}
 }
