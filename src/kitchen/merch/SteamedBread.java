@@ -28,6 +28,10 @@ public class SteamedBread implements DishBuilder{
         ndish.setCooker("蒸笼");
     }
     @Override
+    public void setCount(){
+        ndish.setCount(1);
+    }
+    @Override
     public Dish getDish(){
         return ndish;
     }

@@ -7,5 +7,6 @@ public interface DishBuilder {
     void setPrice();
     void setMaterial();
     void setCooker();
+    void setCount();
     Dish getDish();
 }
