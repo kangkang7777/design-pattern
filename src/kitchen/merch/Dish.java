@@ -1,8 +1,6 @@
 package merch;
 
-import order.consumer.Visitor;
-
-import java.util.ArrayList;
+import staff.Visitor;
 
 public class Dish {
     //商品的名字
@@ -45,9 +43,6 @@ public class Dish {
     }
     public void setCooker(String cooker) {
         this.cooker = cooker;
-    }
-    public void accept(Visitor visitor){
-        visitor.visit(this);
     }
     //可能之后给厨师使用的接口，目前测试用
     //public String show(){

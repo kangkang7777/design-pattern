@@ -1,7 +1,6 @@
-package kitchen.order.orderform;
-
-
-import kitchen.order.merchname.MerchNameFactory;
+package order.orderform;
+import order.merchname.MerchNameFactory;
+import staff.Visitor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,6 +68,14 @@ public class Order implements Cloneable{
      */
     public void setDiscount(double discount) {
         this.discount = discount;
+    }
+
+    /**
+     * 获取订单折扣
+     * @return 订单折扣
+     */
+    public double getDiscount(){
+        return discount;
     }
 
     /**
@@ -142,5 +149,9 @@ public class Order implements Cloneable{
      */
     public int getOid(){
         return this.oid;
+    }
+
+    public void accept(Visitor visitor){
+        visitor.visit(this);
     }
 }

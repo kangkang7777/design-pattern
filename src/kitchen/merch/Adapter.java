@@ -1,10 +1,6 @@
 package merch;
 
-import kitchen.cooker.Cooker;
-import magickitchen.merch.Dish;
-import staff.Waiter;
 import staff.chef.Target;
-
 import java.util.ArrayList;
 
 public class Adapter implements Target {
