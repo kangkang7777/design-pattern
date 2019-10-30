@@ -8,7 +8,7 @@ import staff.chef.Chef;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Waiter{
+public class Waiter implements Visitor{
     private Chef mChef;
     private List<Visitor> mCustomers;
     private ArrayList<String> dishes;
@@ -60,48 +60,15 @@ public class Waiter{
     }
 
     /**
-     * 顾客选菜的操作可以看作Visitor模式
-     * @param visitor 顾客
+     * visit一个菜，显示菜名以及价格
+     * @param dish 被访问的菜品
      */
-    public void accept(Visitor visitor){
-        for (String dish:dishes){
-            switch (dish){
-                case "BoiledFish":
-                    BoiledFish boiledFish = new BoiledFish();
-                    boiledFish.accept(visitor);
-                    totalPrice += boiledFish.getDish().getPrice();
-                    break;
-                case "EggSoup":
-                    EggSoup eggSoup = new EggSoup();
-                    eggSoup.accept(visitor);
-                    totalPrice += eggSoup.getDish().getPrice();
-                    break;
-                case "MaboTofu":
-                    MaboTofu maboTofu = new MaboTofu();
-                    maboTofu.accept(visitor);
-                    totalPrice += maboTofu.getDish().getPrice();
-                    break;
-                case "SteamedBread":
-                    SteamedBread steamedBread = new SteamedBread();
-                    steamedBread.accept(visitor);
-                    totalPrice += steamedBread.getDish().getPrice();
-                    break;
-                case "StirFriedVegetables":
-                    StirFriedVegetables stirFriedVegetables = new StirFriedVegetables();
-                    stirFriedVegetables.accept(visitor);
-                    totalPrice += stirFriedVegetables.getDish().getPrice();
-                    break;
-                default:break;
-            }
-        }
-        System.out.println("totalPrice:" + totalPrice);
+    @Override
+    public void visit(Dish dish) {
+        System.out.println("visit" + dish.getName());
+        System.out.println(dish.getName() + "的价格是" + dish.getPrice());
     }
+    public void visit(Order order){
 
-    /**
-     * 返回点单
-     * @return 一个String list
-     */
-    public ArrayList<String> getOrder(){
-        return dishes;
     }
 }
