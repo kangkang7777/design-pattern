@@ -11,8 +11,9 @@ public class Dish {
     private double price;
     //商品使用的餐具
     private String pack;
-    //商品的原料
+    //商品的原料和需求的数量
     private String material;
+    private int count;
     //商品使用的厨具
     private String cooker;
     //创建和调用的函数
@@ -39,6 +40,12 @@ public class Dish {
     }
     public void setMaterial(String material){
         this.material = material;
+    }
+    public int getCount(){
+        return count;
+    }
+    public void setCount(int count){
+        this.count = count;
     }
     public String getCooker(){
         return cooker;
