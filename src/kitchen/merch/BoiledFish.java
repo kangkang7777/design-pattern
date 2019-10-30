@@ -30,6 +30,10 @@ public class BoiledFish implements DishBuilder{
         ndish.setCooker("电饭煲");
     }
     @Override
+    public void setCount(){
+        ndish.setCount(1);
+    }
+    @Override
     public Dish getDish(){
         return ndish;
     }

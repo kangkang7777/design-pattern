@@ -1,4 +1,6 @@
-package container;
+package kitchen.container;
+
+import kitchen.ingredient.IngredientType;
 
 import java.util.*;
 
@@ -13,6 +15,9 @@ public class Fridge extends Container {
     public Fridge() {
         if (instance == null) {
             instance = this;
+            availableTypes = new ArrayList<>(Arrays.asList(
+                    IngredientType.TOFU,
+                    IngredientType.FISH));
         } else {
             throw new IllegalStateException("Already initialized.");
         }
@@ -28,7 +33,7 @@ public class Fridge extends Container {
      */
     public static synchronized Fridge getInstance() {
         if (instance == null) {
-            instance = new Cabinet();
+            instance = new Fridge();
         }
         return instance;
     }
@@ -36,6 +41,7 @@ public class Fridge extends Container {
     /**
      * @return
      */
+    @Override
     public String getName()
     {
         return("冰箱");

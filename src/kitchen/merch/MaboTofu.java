@@ -30,6 +30,10 @@ public class MaboTofu implements DishBuilder{
         ndish.setCooker("炒锅");
     }
     @Override
+    public void setCount(){
+        ndish.setCount(2);
+    }
+    @Override
     public Dish getDish(){
         return ndish;
     }

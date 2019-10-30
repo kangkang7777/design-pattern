@@ -16,6 +16,7 @@ public class Item {
         ndish.setPrice();
         ndish.setCooker();
         ndish.setMaterial();
+        ndish.setCount();
     }
     //生成菜品以后获取菜品
     public Dish getDish(){

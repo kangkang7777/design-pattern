@@ -1,7 +1,8 @@
-package cooker;
+package kitchen.cooker;
 
 import java.util.*;
-
+import kitchen.ingredient.IngredientType;
+import kitchen.ingredient.*;
 /**
  * 
  */
@@ -11,15 +12,11 @@ public class RiceCooker extends Cooker {
      * Default constructor
      */
     public RiceCooker() {
-
         //设置优先级
         this.priority=Cooker.SECOND;
-       
-
-
         availableTypes = new ArrayList<>(Arrays.asList(         //todo 米饭、(水)
-                IngredientType.RICE,
-                IngredientType.WATER));
+                IngredientType.EGG,
+                IngredientType.FISH));
         name = "电饭煲";
     }
 
@@ -37,7 +34,7 @@ public class RiceCooker extends Cooker {
      */
     @Override
     protected void finishCooking(Ingredient ingredient) {
-        ingredient.changeState(IngerdientType.COOKED);
+        ingredient.setCooked();
         System.out.println("热气腾腾~ 【" + ingredient.getName() + "】 熟啦！");
     }
 
@@ -58,7 +55,7 @@ public class RiceCooker extends Cooker {
     @Override
     protected void finishCooking(ArrayList<Ingredient> ingredientList) {
         for (Ingredient ingredient : ingredientList) {
-            ingredient.changeState(IngerdientType.COOKED);
+            ingredient.setCooked();
             System.out.println("热气腾腾~ 【" + ingredient.getName() + "】 熟啦！");
         }
     }

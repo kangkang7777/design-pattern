@@ -2,20 +2,26 @@ package kitchen.staff.chef;
 import ingredient.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import container.*;
 import container.Fridge;
 import magickitchen.merch.Dish;
 import kitchen.cooker.*;
+import ingredient.Ingredient;
 
+/**
+ * Chef类处理从merch包传过来的
+ * 商品list,根据商品信息去取
+ * container里面的原料，调用cooker
+ * 里面的cook函数进行烹饪，本类不
+ * 涉及Container和Cooker里面原料的添加
+ * 涉及的设计模式：
+ * 单例，责任链
+ */
 public class Chef{
-    /**
-     * Chef的成员变量，接收厨师所要处理的
-     * 商品和进行烹饪时所使用的厨具
-     */
-    protected ArrayList<Cooker>cooker=new ArrayList<>();
-    protected ArrayList<Dish>dishs=new ArrayList<>();
-
+    
+    
     /**
      * Default constructor
      */
@@ -150,32 +156,50 @@ public class Chef{
     }
    }
     
-   
+    
 
     /**
-     * 对外是一个处理商品的接口，内部进行处理
+     * 对外是一个处理商品列表的接口，内部进行处理
      * 获取原材料，使用工具，进行烹饪
      * 此处可以作为一个命令模式的command,进行拓展
-     * @param dish 商品
+     * @param dishs 商品列表
      */
-    public void processMerch(Dish dish){
-        Chef chef=Chef.getInstance();
+    public void processMerchs(ArrayList<dish>dishs){
+        System.out.println("厨师接到了新单");
+        Chef chef=Chef.getInstance(); 
+        //责任链排序
+        HashMap<Integer,Dish> mDishs=new HashMap<>();
+
+        for(merch.Dish dish:dishs){       
         IngredienType type=chef.transferToIngredientType(dish);
         Ingredient ingredient=chef.transferToIngredient(dish);
         Container container=chef.seletedContainer(dish);
-
-        /**
-         * count：不清楚意义
-         */
+        
+        //取原料
+        int count=dish.getCount();
         boolean isTrue= container.get(type, count);
 
-         /**
-         * 此处可进行责任链模式编写
-         */
-        Cooker cooker= chef.buildCooker(dish); 
-        if(isTrue)      
-        cooker.cook(ingredient);
-
-    
+        Cooker newCooker= chef.buildCooker(dish); 
+        if(isTrue){
+            System.out.println("厨师成功从"+container.getName()+"获得"+type) ;   
+            mDishs.add(newCooker.getPriority(),dish);
+        }      
+        else{
+            System.out.println("厨师获得"+type+"失败");
+        }
+       
+        }
+        
+        Iterator< Map.Entry<Integer,Dish> > it =mDishs.entrySet().iterator();
+        while(it.hasNext()){
+            Map.Entry<Integer,Dish> mEntry = it.next();
+            //getKey()和getValue是接口Map.Entry<K,V>中的方法，getKey()返回对应的键，getValue()返回对应的值
+            int key = mEntry.getKey();
+            Dish mDish=mEntry.getValue();
+            Ingredient mIngredient=chef.transferToIngredient(mDish);
+            Cooker mNewCooker= chef.buildCooker(mDish);
+            mNewCooker.cook(mIngredient);
+        }
     }
+    
 }

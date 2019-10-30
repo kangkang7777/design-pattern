@@ -1,6 +1,8 @@
-package cooker;
+package kitchen.cooker;
 
 import java.util.*;
+import kitchen.ingredient.IngredientType;
+import kitchen.ingredient.*;
 
 /**
  * 
@@ -11,13 +13,11 @@ public class Wok extends Cooker {
      * Default constructor
      */
     public Wok() {
-
         //设置优先级
         this.priority=Cooker.SECOND;
-       
-
         availableTypes = new ArrayList<>(Arrays.asList(         //todo undefined
-                IngredientType.UNDEFINED));
+                IngredientType.TOFU,
+                IngredientType.VEGETABLES));
         name = "锅";
     }
 
@@ -35,7 +35,7 @@ public class Wok extends Cooker {
      */
     @Override
     protected void finishCooking(Ingredient ingredient) {
-        ingredient.changeState(IngerdientType.COOKED);
+        ingredient.setCooked();
         System.out.println("香喷喷~ 【" + ingredient.getName() + "】 熟啦！");
     }
 
@@ -56,7 +56,7 @@ public class Wok extends Cooker {
     @Override
     protected void finishCooking(ArrayList<Ingredient> ingredientList) {
         for (Ingredient ingredient : ingredientList) {
-            ingredient.changeState(IngerdientType.COOKED);
+            ingredient.setCooked();
             System.out.println("香喷喷~ 【" + ingredient.getName() + "】 熟啦！");
         }
     }
