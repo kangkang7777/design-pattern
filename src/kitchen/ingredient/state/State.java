@@ -1,5 +1,5 @@
-package ingredient.state
-import java.util.*;
+package kitchen.ingredient.state;
+import kitchen.ingredient.*;
 
 /**
  * 

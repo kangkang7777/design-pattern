@@ -1,42 +1,43 @@
-package ingredient;
-
-import java.util.*;
+package kitchen.ingredient;
 
 /**
  * 
  */
-public class Cucumber extends Ingredient {
+public class Fish extends Ingredient {
 
     /**
      * Default constructor
      */
-    public Cucumber() {
+    public Fish() {
     }
 
     /**
      * 腐烂速度
      * 
      */
-    private int staleSpeed = 0.5;
+    private double staleSpeed = 1;
 
     /**
      * @return
      */
+    @Override
     public String getName(){
-        return("黄瓜");
+        return("鱼");
     }
 
     /**
      * 
      */
+    @Override
     public IngredientType getIngredientType(){
-        return IngredientType.CUCUMBER;
+        return IngredientType.FISH;
     }
 
     /**
      * 时间更新，进行腐烂
      * 
      */
+    @Override
     public void update(){
         if(isState())
         {

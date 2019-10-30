@@ -1,6 +1,8 @@
-package cooker;
+package kitchen.cooker;
 
 import java.util.ArrayList;
+import kitchen.ingredient.IngredientType;
+import kitchen.ingredient.*;
 //todo import ingredient package here
 
 /**

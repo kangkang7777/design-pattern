@@ -1,4 +1,6 @@
-package container;
+package kitchen.container;
+
+import kitchen.ingredient.IngredientType;
 
 import java.util.*;
 
@@ -13,6 +15,10 @@ public class Cabinet extends Container {
     public Cabinet() {
         if (instance == null) {
             instance = this;
+            availableTypes = new ArrayList<>(Arrays.asList(
+                    IngredientType.VEGETABLES,
+                    IngredientType.FLOUR,
+                    IngredientType.EGG));
         } else {
             throw new IllegalStateException("Already initialized.");
         }
@@ -36,6 +42,7 @@ public class Cabinet extends Container {
     /**
      * @return
      */
+    @Override
     public String getName()
     {
         return("橱柜");

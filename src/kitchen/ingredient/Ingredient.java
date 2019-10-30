@@ -1,9 +1,13 @@
-package ingredient;
-
-import java.util.*;
+package kitchen.ingredient;
+import kitchen.time.*;
+import kitchen.ingredient.state.*;
 
 /**
- * 
+ * 原料抽象类。
+ * 拥有新鲜度、食物状态两个参数。
+ * 可以获取名称。
+ * 设计模式：观察者模式，
+ * @author 谢康
  */
 public abstract class Ingredient implements TimeObserver {
 
@@ -15,14 +19,14 @@ public abstract class Ingredient implements TimeObserver {
     public Ingredient() {
         fresh = 100;
         state = new Fresh();
-        Time.getInstance().addObserver(this);
+        Time.getInstance().addTimeObserver(this);
     }
 
     /**
      * 新鲜度
      * 
      */
-    protected int fresh;
+    protected float fresh;
 
     /**
      * 食材状态

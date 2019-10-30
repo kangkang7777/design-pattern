@@ -1,6 +1,4 @@
-package ingredient;
-
-import java.util.*;
+package kitchen.ingredient;
 
 /**
  * 
@@ -17,11 +15,12 @@ public class Egg extends Ingredient {
      * 腐烂速度
      * 
      */
-    private int staleSpeed = 1;
+    private double staleSpeed = 1;
 
     /**
      * @return
      */
+    @Override
     public String getName(){
         return("鸡蛋");
     }
@@ -29,17 +28,17 @@ public class Egg extends Ingredient {
     /**
      * 
      */
+    @Override
     public IngredientType getIngredientType(){
         return IngredientType.EGG;
-
     }
 
     /**
      * 时间更新，进行腐烂
      * 
      */
-    public void update()
-    {
+    @Override
+    public void update(){
         if(isState())
         {
             fresh -= staleSpeed;

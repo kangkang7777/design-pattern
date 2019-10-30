@@ -1,4 +1,4 @@
-package time;
+package kitchen.time;
 
 import java.util.*;
 
@@ -21,7 +21,7 @@ public class Time {
     /**
      * 
      */
-    private ArrayList<TimeObserver> timeObservers;
+    private ArrayList<TimeObserver> timeObservers = new ArrayList<>();
 
 
     /**

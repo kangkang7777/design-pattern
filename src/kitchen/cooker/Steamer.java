@@ -1,6 +1,8 @@
-package cooker;
+package kitchen.cooker;
 
 import java.util.*;
+import kitchen.ingredient.IngredientType;
+import kitchen.ingredient.*;
 /**
  * 
  */
@@ -10,14 +12,10 @@ public class Steamer extends Cooker {
      * Default constructor
      */
     public Steamer() {
-
         //设置优先级
         this.priority=Cooker.SECOND;
-        
-
-        availableTypes = new ArrayList<>(Arrays.asList(         //包子、饺子
-                IngredientType.BAOZI,
-                IngredientType.DUMPLING));
+        availableTypes = new ArrayList<>(Arrays.asList(
+                IngredientType.FLOUR));
         name = "蒸笼";
     }
 
@@ -35,7 +33,7 @@ public class Steamer extends Cooker {
      */
     @Override
     protected void finishCooking(Ingredient ingredient) {
-        ingredient.changeState(IngerdientType.COOKED);
+        ingredient.setCooked();
         System.out.println("热气腾腾~ 【" + ingredient.getName() + "】 熟啦！");
     }
 
@@ -56,7 +54,7 @@ public class Steamer extends Cooker {
     @Override
     protected void finishCooking(ArrayList<Ingredient> ingredientList) {
         for (Ingredient ingredient : ingredientList) {
-            ingredient.changeState(IngerdientType.COOKED);
+            ingredient.setCooked();
             System.out.println("热气腾腾~ 【" + ingredient.getName() + "】 熟啦！");
         }
     }

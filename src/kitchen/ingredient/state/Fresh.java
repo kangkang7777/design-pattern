@@ -1,5 +1,5 @@
-package ingredient.state
-import java.util.*;
+package kitchen.ingredient.state;
+import kitchen.ingredient.*;
 
 /**
  * 
@@ -16,19 +16,21 @@ public class Fresh implements State {
      * @return
      */
     public String toString() {
-        return "??";
+        return "新鲜";
     }
 
     /**
      * @param ingredient 
      * @return
      */
+    @Override
     public boolean isCooked(Ingredient ingredient){return false;}
 
     /**
      * @param ingredient 
      * @return
      */
+    @Override
     public boolean isStale(Ingredient ingredient){return false;}
 
 }

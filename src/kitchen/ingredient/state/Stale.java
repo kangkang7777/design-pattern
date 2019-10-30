@@ -1,5 +1,5 @@
-package ingredient.state
-import java.util.*;
+package kitchen.ingredient.state;
+import kitchen.ingredient.*;
 
 /**
  * 
@@ -16,19 +16,21 @@ public class Stale implements State {
      * @return
      */
     public String toString() {
-        return "??";
+        return "腐烂";
     }
 
     /**
      * @param ingredient 
      * @return
      */
+    @Override
     public boolean isCooked(Ingredient ingredient){return false;}
 
     /**
      * @param ingredient 
      * @return
      */
+    @Override
     public boolean isStale(Ingredient ingredient){return true;}
 
 }
