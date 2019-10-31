@@ -75,6 +75,10 @@ public class Waiter implements Visitor{
         return stirFriedVegetables.getDish().getPrice();
     }
 
+    /**
+     * 服务员visit订单，获取内容并计算总价
+     * @param order
+     */
     @Override
     public void visit(Order order) {
         ArrayList<String> list = order.getOrderList();
