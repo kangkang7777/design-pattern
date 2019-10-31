@@ -1,6 +1,6 @@
 package merch;
 
-import order.consumer.Visitor;
+import staff.Visitor;
 
 public class SteamedBread implements DishBuilder{
     private Dish ndish;
@@ -35,6 +35,6 @@ public class SteamedBread implements DishBuilder{
     }
     @Override
     public void accept(Visitor visitor){
-        ndish.accept(visitor);
+        visitor.visit(this);
     }
 }

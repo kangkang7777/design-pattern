@@ -1,6 +1,6 @@
 package merch;
 
-import order.consumer.Visitor;
+import staff.Visitor;
 
 public interface DishBuilder {
     //创建一个抽象的菜品生成过程的Builder类
