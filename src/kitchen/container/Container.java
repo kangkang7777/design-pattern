@@ -108,11 +108,16 @@ public abstract class Container {
      */
     public int seek(IngredientType type) {
         int ans = 0;
-        for (Ingredient ingredient : ingredients) {
-            if (ingredient.getIngredientType() == type && ingredient.isState()) {
+        ContainerIterator iterator = Iterator();
+
+        while(iterator.hasNext())
+        {
+            Ingredient temp = iterator.next();
+            if (temp.getIngredientType() == type && temp.isState()) {
                 ans++;
             }
         }
+
         return ans;
     }
 
@@ -138,7 +143,7 @@ public abstract class Container {
     /**
      * @return
      */
-    public ContainerIterator Iterator() { return new ContainerIterator(ingredients); }
+    public ContainerIterator Iterator() { return new ContainerIterator(this.ingredients); }
 
     /**
      * @return
