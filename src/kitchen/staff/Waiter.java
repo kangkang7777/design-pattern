@@ -1,8 +1,7 @@
 package staff;
 
 import merch.*;
-import order.*;//引入订单类
-import order.consumer.Visitor;
+import order.orderform.Order;
 import staff.chef.Chef;
 
 import java.util.ArrayList;
@@ -13,7 +12,7 @@ public class Waiter implements Visitor{
     private List<Visitor> mCustomers;
     private ArrayList<String> dishes;
     private List<Order> mOrders;
-    private double totalPrice = 0;
+    private double totalPrice;
 
     //在厨师和客人类内部声明一个Waiter
     //登记厨师和客人
@@ -29,7 +28,7 @@ public class Waiter implements Visitor{
     //为厨师服务的方法
     //厨师做好菜后使用
     public void serve(Chef chef){
-        
+
     }
     //为客人服务的方法
     //客人点单完成后使用
@@ -46,29 +45,64 @@ public class Waiter implements Visitor{
           或是对订单进一步处理的方法 */
     }
 
-    /**
-     * 顾客点菜
-     * @param dish
-     */
-    public void attach(String dish){
-        dishes.add(dish);
+    @Override
+    public double visit(BoiledFish boiledFish) {
+        System.out.println("visit " + boiledFish.getDish().getName());
+        return boiledFish.getDish().getPrice();
     }
-    public void detach(String dish){
-        if (dishes.indexOf(dish) != -1){
-            dishes.remove(dish);
-        }
+
+    @Override
+    public double visit(EggSoup eggSoup) {
+        System.out.println("visit " + eggSoup.getDish().getName());
+        return eggSoup.getDish().getPrice();
+    }
+
+    @Override
+    public double visit(MaboTofu maboTofu) {
+        System.out.println("visit " + maboTofu.getDish().getName());
+        return maboTofu.getDish().getPrice();
+    }
+
+    @Override
+    public double visit(SteamedBread steamedBread) {
+        System.out.println("visit " + steamedBread.getDish().getName());
+        return steamedBread.getDish().getPrice();
+    }
+
+    @Override
+    public double visit(StirFriedVegetables stirFriedVegetables) {
+        System.out.println("visit " + stirFriedVegetables.getDish().getName());
+        return stirFriedVegetables.getDish().getPrice();
     }
 
     /**
-     * visit一个菜，显示菜名以及价格
-     * @param dish 被访问的菜品
+     * 服务员visit订单，获取内容并计算总价
+     * @param order
      */
     @Override
-    public void visit(Dish dish) {
-        System.out.println("visit" + dish.getName());
-        System.out.println(dish.getName() + "的价格是" + dish.getPrice());
-    }
-    public void visit(Order order){
-
+    public void visit(Order order) {
+        ArrayList<String> list = order.getOrderList();
+            for (String string: list) {
+                switch (string) {
+                    case "BoiledFish":
+                        totalPrice += this.visit(new BoiledFish());
+                        break;
+                    case "EggSoup":
+                        totalPrice += this.visit(new EggSoup());
+                        break;
+                    case "MaboTofu":
+                        totalPrice += this.visit(new MaboTofu());
+                        break;
+                    case "SteamedBread":
+                        totalPrice += this.visit(new SteamedBread());
+                        break;
+                    case "StirFriedVegetables":
+                        totalPrice += this.visit(new StirFriedVegetables());
+                        break;
+                    default:break;
+                }
+                double discount = order.getDiscount();
+                System.out.println("共消费：" + totalPrice * discount + "元");
+            }
     }
 }
