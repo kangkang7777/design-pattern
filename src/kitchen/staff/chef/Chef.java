@@ -1,14 +1,24 @@
 package kitchen.staff.chef;
-import ingredient.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import container.*;
-import container.Fridge;
-import magickitchen.merch.Dish;
 import kitchen.cooker.*;
-import ingredient.Ingredient;
+import merch.Dish;
+import kitchen.cooker.Cooker;
+import kitchen.ingredient.IngredientType;
+import kitchen.ingredient.Ingredient;
+import container.Fridge;
+import container.Cabinet;
+import kitchen.ingredient.Flour;
+import kitchen.ingredient.Fish;
+import kitchen.ingredient.Tofu;
+import kitchen.ingredient.Vegetables;
+import kitchen.ingredient.Egg;
+import kitchen.staff.chef.ChefImp;
+
+
 
 /**
  * Chef类处理从merch包传过来的
@@ -19,7 +29,7 @@ import ingredient.Ingredient;
  * 涉及的设计模式：
  * 单例，责任链
  */
-public class Chef{
+public class Chef implements ChefImp{
     
     
     /**
@@ -57,11 +67,21 @@ public class Chef{
     */
     private IngredientType transferToIngredientType(Dish dish){
         IngredientType type;
-        if(dish.getMaterial().equals("黄瓜")){
-            type=IngredientType.CUCUMBER;
-        }
+        
         if(dish.getMaterial().equals("鸡蛋")){
             type=IngredientType.EGG;
+        }
+        if(dish.getMaterial().equals("面粉")){
+            type=IngredientType.FLOUR;
+        }
+        if(dish.getMaterial().equals("鱼")){
+            type=IngredientType.FISH;
+        }
+        if(dish.getMaterial().equals("豆腐")){
+            type=IngredientType.TOFU;
+        }
+        if(dish.getMaterial().equals("蔬菜")){
+            type=IngredientType.VEGETABLES;
         }
         return type;
     }
@@ -74,11 +94,21 @@ public class Chef{
     */
     private Ingredient transferToIngredient(Dish dish){
         Ingredient ingredient;
-        if(dish.getMaterial().equals("黄瓜")){
-            ingredient=new Cucumber();            
-        }
+        
         if(dish.getMaterial().equals("鸡蛋")){
             ingredient=new Egg();     
+        }
+        if(dish.getMaterial().equals("面粉")){
+            ingredient=new Flour();
+        }
+        if(dish.getMaterial().equals("鱼")){
+            ingredient=new Fish();
+        }
+        if(dish.getMaterial().equals("豆腐")){
+           ingredient=new Tofu();
+        }
+        if(dish.getMaterial().equals("蔬菜")){
+           ingredient=new Vegetables();
         }
         return ingredient;
     }
@@ -143,6 +173,7 @@ public class Chef{
         Cooker wok=new Wok();
         return wok;   
     }
+    
     if(dish.getCooker().equals("电饭煲")){
         Cooker ricCooker=new RiceCooker();
         return ricCooker;
@@ -164,7 +195,8 @@ public class Chef{
      * 此处可以作为一个命令模式的command,进行拓展
      * @param dishs 商品列表
      */
-    public void processMerchs(ArrayList<dish>dishs){
+    @Override
+    public void processMerchs(ArrayList<Dish>dishs){
         System.out.println("厨师接到了新单");
         Chef chef=Chef.getInstance(); 
         //责任链排序
@@ -175,7 +207,7 @@ public class Chef{
         Ingredient ingredient=chef.transferToIngredient(dish);
         Container container=chef.seletedContainer(dish);
         
-        //取原料
+        //取原料及其数量并进行消耗
         int count=dish.getCount();
         boolean isTrue= container.get(type, count);
 
