@@ -50,6 +50,7 @@ public class Waiter implements Visitor{
         System.out.println("visit " + dish.getName());
         return dish.getPrice();
     }
+
     @Override
     public void visit(Order order) {
         ArrayList<String> list = order.getOrderList();
