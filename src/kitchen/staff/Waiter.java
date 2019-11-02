@@ -46,63 +46,20 @@ public class Waiter implements Visitor{
     }
 
     @Override
-    public double visit(BoiledFish boiledFish) {
-        System.out.println("visit " + boiledFish.getDish().getName());
-        return boiledFish.getDish().getPrice();
+    public double visit(Dish dish) {
+        System.out.println("visit " + dish.getName());
+        return dish.getPrice();
     }
-
-    @Override
-    public double visit(EggSoup eggSoup) {
-        System.out.println("visit " + eggSoup.getDish().getName());
-        return eggSoup.getDish().getPrice();
-    }
-
-    @Override
-    public double visit(MaboTofu maboTofu) {
-        System.out.println("visit " + maboTofu.getDish().getName());
-        return maboTofu.getDish().getPrice();
-    }
-
-    @Override
-    public double visit(SteamedBread steamedBread) {
-        System.out.println("visit " + steamedBread.getDish().getName());
-        return steamedBread.getDish().getPrice();
-    }
-
-    @Override
-    public double visit(StirFriedVegetables stirFriedVegetables) {
-        System.out.println("visit " + stirFriedVegetables.getDish().getName());
-        return stirFriedVegetables.getDish().getPrice();
-    }
-
-    /**
-     * 服务员visit订单，获取内容并计算总价
-     * @param order
-     */
     @Override
     public void visit(Order order) {
         ArrayList<String> list = order.getOrderList();
-            for (String string: list) {
-                switch (string) {
-                    case "BoiledFish":
-                        totalPrice += this.visit(new BoiledFish());
-                        break;
-                    case "EggSoup":
-                        totalPrice += this.visit(new EggSoup());
-                        break;
-                    case "MaboTofu":
-                        totalPrice += this.visit(new MaboTofu());
-                        break;
-                    case "SteamedBread":
-                        totalPrice += this.visit(new SteamedBread());
-                        break;
-                    case "StirFriedVegetables":
-                        totalPrice += this.visit(new StirFriedVegetables());
-                        break;
-                    default:break;
-                }
-                double discount = order.getDiscount();
-                System.out.println("共消费：" + totalPrice * discount + "元");
-            }
+        System.out.println("visit order");
+        Adapter adapter = new Adapter();
+        ArrayList<Dish> dishes = adapter.getDishes(list);
+        for (Dish dish: dishes) {
+            totalPrice += visit(dish);
+        }
+        double discount = order.getDiscount();
+        System.out.println("共消费：" + totalPrice * discount + "元");
     }
 }

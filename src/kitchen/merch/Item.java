@@ -1,7 +1,5 @@
 package merch;
 
-import java.util.ArrayList;
-
 public class Item {
 
     private DishBuilder ndish;

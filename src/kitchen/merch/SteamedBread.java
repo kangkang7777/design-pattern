@@ -2,7 +2,7 @@ package merch;
 
 import staff.Visitor;
 
-public class SteamedBread implements DishBuilder{
+public class SteamedBread implements DishBuilder {
     private Dish ndish;
 
     public SteamedBread(){
@@ -35,6 +35,6 @@ public class SteamedBread implements DishBuilder{
     }
     @Override
     public void accept(Visitor visitor){
-        visitor.visit(this);
+        this.getDish().accept(visitor);
     }
 }

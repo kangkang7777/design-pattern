@@ -35,6 +35,6 @@ public class EggSoup implements DishBuilder{
     }
     @Override
     public void accept(Visitor visitor){
-        visitor.visit(this);
+        this.getDish().accept(visitor);
     }
 }

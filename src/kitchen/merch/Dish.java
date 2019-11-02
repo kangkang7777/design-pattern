@@ -44,6 +44,9 @@ public class Dish {
     public void setCooker(String cooker) {
         this.cooker = cooker;
     }
+    public void accept(Visitor visitor){
+        visitor.visit(this);
+    }
     //可能之后给厨师使用的接口，目前测试用
     //public String show(){
     //    return "菜名:"+getName()+" 餐具:"+getPack()+" 价格:"+getPrice()+" 原料:"+getMaterial()+" 厨具:"+getCooker();
