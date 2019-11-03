@@ -1,6 +1,7 @@
-package order.orderform;
-import order.merchname.MerchNameFactory;
-import staff.Visitor;
+package kitchen.order.orderform;
+import kitchen.order.merchname.MerchNameFactory;
+import kitchen.staff.Waiter;
+//import kitchen.staff.Visitor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,16 @@ import java.util.List;
  * @see MerchNameFactory
  */
 public class Order implements Cloneable{
+    private Waiter waiter;
+
+    private void setWaiter(Waiter w){
+        this.waiter = w;
+    }
+
+    public void givemenu(){
+        waiter.serve(this);
+    }
+
     /**
      * 记录订单号增长的静态变量，用于给每个订单分配订单号。
      */
@@ -23,10 +34,15 @@ public class Order implements Cloneable{
     /**
      * 表示订单的编号。
      */
+
     private int oid;
     /**
      * 表示为匹配顾客数量而分配的餐桌大小。
      */
+
+    //private Waiter
+
+
     private int tablesize;
     /**
      * 表示订单的折扣。
@@ -41,7 +57,7 @@ public class Order implements Cloneable{
      */
     private double bill = 0;
 
-    Order(){
+    public Order(){
         oid = ++count;
     }
 
@@ -103,7 +119,7 @@ public class Order implements Cloneable{
      * @throws CloneNotSupportedException
      */
     @Override
-    protected Object clone() throws CloneNotSupportedException {
+    public Object clone() throws CloneNotSupportedException {
         Order o = (Order)super.clone();
         ArrayList<String> dl = new ArrayList<String>();
         o.tablesize = this.tablesize;
@@ -121,12 +137,18 @@ public class Order implements Cloneable{
      * 将其转换成单个菜品记录在dishlist中。
      * @param name
      */
-    public void adddish(String name){
+    public void adddish(String name) throws CloneNotSupportedException {
         List<String> merchs = MerchNameFactory.getMerchName(name);
-        for(String i: merchs){
-            this.dishlist.add(i);
+        if(merchs != null) {
+            Memento.getInstance().setBackup(this);
+            for (String i : merchs) {
+                this.dishlist.add(i);
+            }
+            System.out.println("菜品" + name + "已添加。");
         }
-        System.out.println("菜品" + name + "已添加。");
+        else{
+            System.out.println("此菜品没有~");
+        }
     }
 
     /**
@@ -134,8 +156,9 @@ public class Order implements Cloneable{
      * 将其从dishlist中删去。
      * @param name
      */
-    public void canceldish(String name){
+    public void canceldish(String name) throws CloneNotSupportedException {
         if(dishlist.contains(name)) {
+            Memento.getInstance().setBackup(this);
             dishlist.remove(name);
             System.out.println("菜品" + name + "已删除。");
         }
@@ -151,7 +174,12 @@ public class Order implements Cloneable{
         return this.oid;
     }
 
-    public void accept(Visitor visitor){
-        visitor.visit(this);
+    public void adjustclone(){
+        this.oid++;
+        count++;
     }
+
+    //public void accept(Visitor visitor){
+    //    visitor.visit(this);
+    //}
 }

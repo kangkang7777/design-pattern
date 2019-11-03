@@ -1,6 +1,7 @@
-package merch;
+package kitchen.merch;
+import java.util.ArrayList;
 
-import staff.chef.Target;
+import kitchen.staff.chef.Target;
 import java.util.ArrayList;
 
 public class Adapter implements Target {

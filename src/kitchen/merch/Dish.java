@@ -1,6 +1,6 @@
-package merch;
+package kitchen.merch;
 
-import staff.Visitor;
+import kitchen.staff.Visitor;
 
 public class Dish {
     //商品的名字

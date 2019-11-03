@@ -1,6 +1,6 @@
-package merch;
+package kitchen.merch;
 
-import staff.Visitor;
+import kitchen.staff.Visitor;
 
 public class MaboTofu implements DishBuilder{
     private Dish ndish;
