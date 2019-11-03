@@ -34,6 +34,7 @@ public class Steamer extends Cooker {
     @Override
     protected void finishCooking(Ingredient ingredient) {
         ingredient.setCooked();
+        FancyCut fancyCut = new FancyCut(ingredient);
         System.out.println("热气腾腾~ 【" + ingredient.getName() + "】 熟啦！");
     }
 
@@ -55,6 +56,7 @@ public class Steamer extends Cooker {
     protected void finishCooking(ArrayList<Ingredient> ingredientList) {
         for (Ingredient ingredient : ingredientList) {
             ingredient.setCooked();
+            FancyCut fancyCut = new FancyCut(ingredient);
             System.out.println("热气腾腾~ 【" + ingredient.getName() + "】 熟啦！");
         }
     }

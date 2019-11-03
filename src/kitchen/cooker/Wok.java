@@ -1,9 +1,7 @@
 package kitchen.cooker;
 
 import java.util.*;
-import kitchen.ingredient.IngredientType;
 import kitchen.ingredient.*;
-
 /**
  * 
  */
@@ -36,6 +34,7 @@ public class Wok extends Cooker {
     @Override
     protected void finishCooking(Ingredient ingredient) {
         ingredient.setCooked();
+        FancyCut fancyCut = new FancyCut(ingredient);
         System.out.println("香喷喷~ 【" + ingredient.getName() + "】 熟啦！");
     }
 
@@ -57,6 +56,7 @@ public class Wok extends Cooker {
     protected void finishCooking(ArrayList<Ingredient> ingredientList) {
         for (Ingredient ingredient : ingredientList) {
             ingredient.setCooked();
+            FancyCut fancyCut = new FancyCut(ingredient);
             System.out.println("香喷喷~ 【" + ingredient.getName() + "】 熟啦！");
         }
     }

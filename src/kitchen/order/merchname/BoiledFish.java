@@ -1,8 +1,9 @@
 package kitchen.order.merchname;
+import java.util.Collections;
 import java.util.List;
 //单品水煮鱼
 public class BoiledFish implements MerchName{
-    public final static List<String> names=List.of("水煮鱼");
+    public final static List<String> names= Collections.singletonList("水煮鱼");
 
     // public BoiledFish(){
     //     names=new List<>();
