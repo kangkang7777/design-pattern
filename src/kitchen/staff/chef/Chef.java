@@ -1,5 +1,6 @@
 package kitchen.staff.chef;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -141,12 +142,12 @@ public class Chef implements ChefImp{
     private int hasIngredient(IngredientType type){
         if(Cabinet.getInstance().seek(type)>0)
         {
-            System.out.println(""+type.toString()+"在橱柜中");
+
             return 1;
         }
-        if(Fridge.getInstance().seek(type)>0)
+        else if(Fridge.getInstance().seek(type)>0)
         {
-            System.out.println(""+type.toString()+"在冰箱中");
+
             return 2;
         }
         else{
@@ -160,19 +161,33 @@ public class Chef implements ChefImp{
     * @param dish
     * @return Container
     */
-    public Container seletedContainer(Dish dish){
+    public Container selectedContainer(Dish dish){
     Chef chef=Chef.getInstance();
     IngredientType type=chef.transferToIngredientType(dish);
+    Container cabinet=Cabinet.getInstance();
+    Container fridge=Fridge.getInstance();
     if(chef.hasIngredient(type)==1){
-        Container cabinet=Cabinet.getInstance();
+
+        System.out.println(""+type.toString()+"在橱柜中");
         return cabinet;
     }
-    if(chef.hasIngredient(type)==2){
-        Container fridge=Fridge.getInstance();
+    else if(chef.hasIngredient(type)==2){
+
+        System.out.println(""+type.toString()+"在冰箱中");
         return fridge;
     }
     else {
-        throw new IllegalStateException("厨具不存在");
+        if(type==IngredientType.EGG||type==IngredientType.FLOUR||
+                type==IngredientType.VEGETABLES){
+            cabinet.put(type,100);
+            System.out.println(type+"重新进货了"+"，存放在橱柜中");
+            return cabinet;
+        }
+        else {
+            fridge.put(type,100);
+            System.out.println(type+"重新进货了"+"，存放在冰箱中");
+            return fridge;
+        }
     }
    }
     
@@ -193,13 +208,11 @@ public class Chef implements ChefImp{
         Cooker ricCooker=new RiceCooker();
         return ricCooker;
     }
-    if(dish.getCooker().equals("蒸笼")){
+    else {
         Cooker steamer=new Steamer();
         return steamer;
     }
-    else {
-        throw new IllegalStateException("厨具不存在");
-    }
+
    }
     
     
@@ -220,7 +233,7 @@ public class Chef implements ChefImp{
         for(Dish dish:dishes){
         IngredientType type=chef.transferToIngredientType(dish);
         Ingredient ingredient=chef.transferToIngredient(dish);
-        Container container=chef.seletedContainer(dish);
+        Container container=chef.selectedContainer(dish);
         
         //取原料及其数量并进行消耗
         int count=dish.getCount();
@@ -247,6 +260,7 @@ public class Chef implements ChefImp{
             Cooker mNewCooker= chef.buildCooker(mDish);
             mNewCooker.cook(mIngredient);
         }
+      //mWaiter.serve(this);
     }
     
 }

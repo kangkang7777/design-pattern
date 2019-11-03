@@ -14,7 +14,7 @@ public class Wok extends Cooker {
      */
     public Wok() {
         //设置优先级
-        this.priority=Cooker.SECOND;
+        this.priority=Cooker.THIRD;
         availableTypes = new ArrayList<>(Arrays.asList(         //todo undefined
                 IngredientType.TOFU,
                 IngredientType.VEGETABLES));
