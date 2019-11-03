@@ -16,15 +16,6 @@ import java.util.List;
  * @see MerchNameFactory
  */
 public class Order implements Cloneable{
-    private Waiter waiter;
-
-    private void setWaiter(Waiter w){
-        this.waiter = w;
-    }
-
-    public void givemenu(){
-        waiter.serve(this);
-    }
 
     /**
      * 记录订单号增长的静态变量，用于给每个订单分配订单号。
@@ -34,16 +25,18 @@ public class Order implements Cloneable{
     /**
      * 表示订单的编号。
      */
-
     private int oid;
+
+    /**
+     * 表示为此订单服务的服务员
+     */
+    private Waiter waiter;
+
     /**
      * 表示为匹配顾客数量而分配的餐桌大小。
      */
-
-    //private Waiter
-
-
     private int tablesize;
+
     /**
      * 表示订单的折扣。
      */
@@ -61,6 +54,32 @@ public class Order implements Cloneable{
         oid = ++count;
     }
 
+    /**
+     * 设置本订单的服务员
+     * @param w
+     */
+    private void setWaiter(Waiter w){
+        this.waiter = w;
+    }
+
+    /**
+     * 令服务员接收此订单
+     */
+    public void giveorder(){
+        waiter.serve(this);
+    }
+
+    /**
+     * 返回顾客的菜品清单
+     * @return
+     */
+    public ArrayList<String> givemenu(){
+        return dishlist;
+    }
+
+
+
+
 
     /**
      * 根据顾客的数量，决定餐桌的大小。
@@ -69,12 +88,15 @@ public class Order implements Cloneable{
     public void setTablesize(int persons) {
         if(persons < 4){
             this.tablesize = 1;
+            System.out.println("为您分配4人桌。");
         }
         else if(persons < 6){
             this.tablesize = 2;
+            System.out.println("为您分配6人桌。");
         }
         else{
             this.tablesize = 3;
+            System.out.println("为您分配大~~桌");
         }
     }
 
