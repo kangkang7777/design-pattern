@@ -13,7 +13,7 @@ public class Steamer extends Cooker {
      */
     public Steamer() {
         //设置优先级
-        this.priority=Cooker.SECOND;
+        this.priority=Cooker.FIRST;
         availableTypes = new ArrayList<>(Arrays.asList(
                 IngredientType.FLOUR));
         name = "蒸笼";
