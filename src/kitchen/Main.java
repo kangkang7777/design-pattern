@@ -3,8 +3,10 @@ package kitchen;
 import kitchen.container.Cabinet;
 import kitchen.container.Fridge;
 import kitchen.ingredient.IngredientType;
+import kitchen.merch.Adapter;
 import kitchen.order.orderform.Memento;
 import kitchen.order.orderform.Order;
+import kitchen.staff.chef.Chef;
 import kitchen.time.Time;
 
 import java.util.Scanner;
@@ -26,7 +28,7 @@ public class Main {
         //菜单打印
         System.out.println("欢迎来到谢康大厨掌勺的健康餐厅，请问您是VIP吗？  是（Y）/不是（N）");
         String isY = stdIn.next();
-        if(isY == "y"|| isY == "Y" || isY == "是"){
+        if(isY.equals("y")|| isY.equals("Y") || isY.equals("是") || isY.equals("shi")){
             o = (Order)o2.clone();
             o.adjustclone();
 
@@ -35,22 +37,35 @@ public class Main {
             o = (Order)o1.clone();
 
         }
+        System.out.println("请问一共有几位客人？");
+        int number = stdIn.nextInt();
+        o.setTablesize(number);
+
 
         System.out.println("----Menu----");
-        System.out.println("1. 麻婆豆腐  2. 水煮鱼  3. 鸡蛋汤 0. 结束点餐 -1. 取消");
-        System.out.println("请点餐");
+        System.out.println("1. 水煮鱼  2. 鸡蛋汤  3. 麻婆豆腐 4. 炒青菜 5. 馒头");
+        System.out.println("6. 水煮鱼套餐 7. 麻婆豆腐套餐 -1. 删除菜品  -2. 回退上一步 0. 完成订单");
+        System.out.println("请点餐：");
         String dishname = "";
-        while(!dishname.equals("0")){
+        while(true){
             dishname = stdIn.next();
-            if(dishname.equals("0"))
+            if(dishname.equals("0") || dishname.equals("完成订单"))
                 break;
-            if(dishname.equals("-1")) {
+            else if(dishname.equals("-1") || dishname.equals("删除菜品")) {
+                System.out.println("请输入要删除的菜品名字或编号：");
+                String ddish = stdIn.next();
+                o.canceldish(ddish);
+            }
+            else if(dishname.equals("-2") || dishname.equals("回退") || dishname.equals("回退上一步")){
                 o = Memento.getInstance().getBackup(o);
             }
             else {
                 o.adddish(dishname);
             }
         }
+        System.out.println("点餐完成！");
+        o.giveorder();
+
 
 
 
