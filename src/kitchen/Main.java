@@ -3,14 +3,72 @@ package kitchen;
 import kitchen.container.Cabinet;
 import kitchen.container.Fridge;
 import kitchen.ingredient.IngredientType;
+import kitchen.merch.Adapter;
+import kitchen.order.orderform.Memento;
+import kitchen.order.orderform.Order;
+import kitchen.staff.chef.Chef;
 import kitchen.time.Time;
+
+import java.util.Scanner;
 
 /**
  *部分模块的测试请写在此Main中，标注信息并注释
  */
-public class Main{
-    public static void main(String[] args)
-    {
+public class Main {
+    public static void main(String[] args) throws CloneNotSupportedException {
+        /**
+         * Order模块测试
+         */
+        Scanner stdIn = new Scanner(System.in);
+        Order o;
+        Order o1 = new Order();
+        o1.setDiscount(1);
+        Order o2 = new Order();
+        o2.setDiscount(0.88);
+        //菜单打印
+        System.out.println("欢迎来到谢康大厨掌勺的健康餐厅，请问您是VIP吗？  是（Y）/不是（N）");
+        String isY = stdIn.next();
+        if(isY.equals("y")|| isY.equals("Y") || isY.equals("是") || isY.equals("shi")){
+            o = (Order)o2.clone();
+            o.adjustclone();
+
+        }
+        else{
+            o = (Order)o1.clone();
+
+        }
+        System.out.println("请问一共有几位客人？");
+        int number = stdIn.nextInt();
+        o.setTablesize(number);
+
+
+        System.out.println("----Menu----");
+        System.out.println("1. 水煮鱼  2. 鸡蛋汤  3. 麻婆豆腐 4. 炒青菜 5. 馒头");
+        System.out.println("6. 水煮鱼套餐 7. 麻婆豆腐套餐 -1. 删除菜品  -2. 回退上一步 0. 完成订单");
+        System.out.println("请点餐：");
+        String dishname = "";
+        while(true){
+            dishname = stdIn.next();
+            if(dishname.equals("0") || dishname.equals("完成订单"))
+                break;
+            else if(dishname.equals("-1") || dishname.equals("删除菜品")) {
+                System.out.println("请输入要删除的菜品名字或编号：");
+                String ddish = stdIn.next();
+                o.canceldish(ddish);
+            }
+            else if(dishname.equals("-2") || dishname.equals("回退") || dishname.equals("回退上一步")){
+                o = Memento.getInstance().getBackup(o);
+            }
+            else {
+                o.adddish(dishname);
+            }
+        }
+        System.out.println("点餐完成！");
+        o.giveorder();
+
+
+
+
 
     }
 

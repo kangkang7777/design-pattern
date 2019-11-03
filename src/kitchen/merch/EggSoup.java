@@ -1,8 +1,8 @@
-package merch;
+package kitchen.merch;
 
-import order.consumer.Visitor;
+import kitchen.staff.Visitor;
 
-public class EggSoup implements DishBuilder{
+public class EggSoup extends Dish implements DishBuilder{
     private Dish ndish;
 
     public EggSoup(){
@@ -39,6 +39,6 @@ public class EggSoup implements DishBuilder{
     }
     @Override
     public void accept(Visitor visitor){
-        ndish.accept(visitor);
+        visitor.visit(this);;
     }
 }

@@ -2,22 +2,23 @@ package kitchen.staff.chef;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
-import container.*;
+import kitchen.container.*;
 import kitchen.cooker.*;
-import merch.Dish;
+import kitchen.merch.Dish;
 import kitchen.cooker.Cooker;
 import kitchen.ingredient.IngredientType;
 import kitchen.ingredient.Ingredient;
-import container.Fridge;
-import container.Cabinet;
+import kitchen.container.Fridge;
+import kitchen.container.Cabinet;
 import kitchen.ingredient.Flour;
 import kitchen.ingredient.Fish;
 import kitchen.ingredient.Tofu;
 import kitchen.ingredient.Vegetables;
 import kitchen.ingredient.Egg;
-import kitchen.staff.chef.ChefImp;
-
+import kitchen.staff.Waiter;
 
 
 /**
@@ -31,7 +32,21 @@ import kitchen.staff.chef.ChefImp;
  */
 public class Chef implements ChefImp{
     
-    
+    private Waiter mWaiter;
+    private ArrayList<Dish>dishes=new ArrayList<>();
+
+    public void setDishes(ArrayList<Dish> dishes) {
+        this.dishes = dishes;
+    }
+
+    public ArrayList<Dish> getDishes() {
+        return dishes;
+    }
+
+    public void setWaiter(Waiter mWaiter) {
+        this.mWaiter = mWaiter;
+    }
+
     /**
      * Default constructor
      */
@@ -66,7 +81,7 @@ public class Chef implements ChefImp{
     * @return IngredientType
     */
     private IngredientType transferToIngredientType(Dish dish){
-        IngredientType type;
+        IngredientType type=IngredientType.EGG;
         
         if(dish.getMaterial().equals("鸡蛋")){
             type=IngredientType.EGG;
@@ -93,7 +108,7 @@ public class Chef implements ChefImp{
     * @return Ingredient
     */
     private Ingredient transferToIngredient(Dish dish){
-        Ingredient ingredient;
+        Ingredient ingredient=new Egg();
         
         if(dish.getMaterial().equals("鸡蛋")){
             ingredient=new Egg();     
@@ -124,12 +139,12 @@ public class Chef implements ChefImp{
      * 0：原料不存在
      */
     private int hasIngredient(IngredientType type){
-        if(Cabinet.getInstance().seek(type))
+        if(Cabinet.getInstance().seek(type)>0)
         {
             System.out.println(""+type.toString()+"在橱柜中");
             return 1;
         }
-        if(Fridge.getInstance().seek(type))
+        if(Fridge.getInstance().seek(type)>0)
         {
             System.out.println(""+type.toString()+"在冰箱中");
             return 2;
@@ -193,17 +208,17 @@ public class Chef implements ChefImp{
      * 对外是一个处理商品列表的接口，内部进行处理
      * 获取原材料，使用工具，进行烹饪
      * 此处可以作为一个命令模式的command,进行拓展
-     * @param dishs 商品列表
+     * @param dishes 商品列表
      */
     @Override
-    public void processMerchs(ArrayList<Dish>dishs){
+    public void processMerchs(ArrayList<Dish>dishes){
         System.out.println("厨师接到了新单");
         Chef chef=Chef.getInstance(); 
         //责任链排序
-        HashMap<Integer,Dish> mDishs=new HashMap<>();
+        HashMap<Integer,Dish> mDishes=new HashMap<>();
 
-        for(merch.Dish dish:dishs){       
-        IngredienType type=chef.transferToIngredientType(dish);
+        for(Dish dish:dishes){
+        IngredientType type=chef.transferToIngredientType(dish);
         Ingredient ingredient=chef.transferToIngredient(dish);
         Container container=chef.seletedContainer(dish);
         
@@ -214,15 +229,15 @@ public class Chef implements ChefImp{
         Cooker newCooker= chef.buildCooker(dish); 
         if(isTrue){
             System.out.println("厨师成功从"+container.getName()+"获得"+type) ;   
-            mDishs.add(newCooker.getPriority(),dish);
+            mDishes.put(newCooker.getPriority(),dish);
         }      
         else{
             System.out.println("厨师获得"+type+"失败");
         }
        
         }
-        
-        Iterator< Map.Entry<Integer,Dish> > it =mDishs.entrySet().iterator();
+
+        Iterator<Map.Entry<Integer, Dish>> it = mDishes.entrySet().iterator();
         while(it.hasNext()){
             Map.Entry<Integer,Dish> mEntry = it.next();
             //getKey()和getValue是接口Map.Entry<K,V>中的方法，getKey()返回对应的键，getValue()返回对应的值

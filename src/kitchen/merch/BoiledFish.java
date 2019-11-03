@@ -1,8 +1,8 @@
-package merch;
+package kitchen.merch;
 
-import order.consumer.Visitor;
+import kitchen.staff.Visitor;
 
-public class BoiledFish implements DishBuilder{
+public class BoiledFish extends Dish implements DishBuilder{
     private Dish ndish;
 
     public BoiledFish(){
@@ -39,6 +39,6 @@ public class BoiledFish implements DishBuilder{
     }
     @Override
     public void accept(Visitor visitor){
-        ndish.accept(visitor);
+        visitor.visit(this);
     }
 }
