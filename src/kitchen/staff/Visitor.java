@@ -1,6 +1,6 @@
-package staff;
-import merch.*;
-import order.orderform.Order;
+package kitchen.staff;
+import kitchen.merch.*;
+import kitchen.order.orderform.Order;
 
 import java.util.ArrayList;
 

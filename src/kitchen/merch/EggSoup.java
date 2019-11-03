@@ -1,8 +1,8 @@
-package merch;
+package kitchen.merch;
 
-import staff.Visitor;
+import kitchen.staff.Visitor;
 
-public class EggSoup implements DishBuilder{
+public class EggSoup extends Dish implements DishBuilder{
     private Dish ndish;
 
     public EggSoup(){

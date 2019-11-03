@@ -3,14 +3,57 @@ package kitchen;
 import kitchen.container.Cabinet;
 import kitchen.container.Fridge;
 import kitchen.ingredient.IngredientType;
+import kitchen.order.orderform.Memento;
+import kitchen.order.orderform.Order;
 import kitchen.time.Time;
+
+import java.util.Scanner;
 
 /**
  *部分模块的测试请写在此Main中，标注信息并注释
  */
-public class Main{
-    public static void main(String[] args)
-    {
+public class Main {
+    public static void main(String[] args) throws CloneNotSupportedException {
+        /**
+         * Order模块测试
+         */
+        Scanner stdIn = new Scanner(System.in);
+        Order o;
+        Order o1 = new Order();
+        o1.setDiscount(1);
+        Order o2 = new Order();
+        o2.setDiscount(0.88);
+        //菜单打印
+        System.out.println("欢迎来到谢康大厨掌勺的健康餐厅，请问您是VIP吗？  是（Y）/不是（N）");
+        String isY = stdIn.next();
+        if(isY == "y"|| isY == "Y" || isY == "是"){
+            o = (Order)o2.clone();
+            o.adjustclone();
+
+        }
+        else{
+            o = (Order)o1.clone();
+
+        }
+
+        System.out.println("----Menu----");
+        System.out.println("1. 麻婆豆腐  2. 水煮鱼  3. 鸡蛋汤 0. 结束点餐 -1. 取消");
+        System.out.println("请点餐");
+        String dishname = "";
+        while(!dishname.equals("0")){
+            dishname = stdIn.next();
+            if(dishname.equals("0"))
+                break;
+            if(dishname.equals("-1")) {
+                o = Memento.getInstance().getBackup(o);
+            }
+            else {
+                o.adddish(dishname);
+            }
+        }
+
+
+
 
     }
 

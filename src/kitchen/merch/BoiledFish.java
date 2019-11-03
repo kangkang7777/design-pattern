@@ -1,8 +1,8 @@
-package merch;
+package kitchen.merch;
 
-import staff.Visitor;
+import kitchen.staff.Visitor;
 
-public class BoiledFish implements DishBuilder{
+public class BoiledFish extends Dish implements DishBuilder{
     private Dish ndish;
 
     public BoiledFish(){

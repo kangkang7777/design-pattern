@@ -1,4 +1,4 @@
-package merch;
+package kitchen.merch;
 
 import java.util.ArrayList;
 

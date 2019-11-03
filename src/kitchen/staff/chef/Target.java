@@ -1,6 +1,6 @@
-package staff.chef;
+package kitchen.staff.chef;
 
-import merch.Dish;
+import kitchen.merch.Dish;
 
 import java.util.ArrayList;
 

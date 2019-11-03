@@ -1,5 +1,4 @@
 package kitchen.order.orderform;
-
 import java.util.Hashtable;
 import java.util.Stack;
 
@@ -36,7 +35,7 @@ public class Memento {
      * 返回单例。
      * @return 唯一的Memento实例。
      */
-    static Memento getInstance() { return memt; }
+    public static Memento getInstance() { return memt; }
 
     /**
      * 对传入的订单，获得其备份。
@@ -52,6 +51,11 @@ public class Memento {
         return backup.pop();
     }
 
+    /**
+     * 对传入的订单，设置一个备份
+     * @param o 传入的订单实例
+     * @throws CloneNotSupportedException
+     */
     public void setBackup( Order o ) throws CloneNotSupportedException {
         Order backup = (Order)o.clone();
         if( pool.containsKey(o.getOid()) ) {
