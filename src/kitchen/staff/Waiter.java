@@ -28,7 +28,6 @@ public class Waiter implements Visitor,WaiterInterface{
     private Waiter(){
         if (instance == null) {
             instance = this;
-            //测试使用，正常使用时可注释下一行
             realWaiter.setmWaiter(this);
         } else {
             throw new IllegalStateException("Already initialized.");
@@ -54,11 +53,11 @@ public class Waiter implements Visitor,WaiterInterface{
         System.out.println("中介者模式：订单已获得服务员受理");
     }
 
-    //测试用serve函数
-    public void serve(){
-        System.out.println("测试代理服务开始");
-        realWaiter.serve();
-        System.out.println("测试代理服务结束");
+
+//    public void serve(){
+//        System.out.println("测试代理服务开始");
+//        realWaiter.serve();
+//        System.out.println("测试代理服务结束");
 //        if(lists != null){
 //            Adapter adapter = new Adapter();
 //            dishes = adapter.getDishes();
@@ -68,24 +67,28 @@ public class Waiter implements Visitor,WaiterInterface{
 //        else {
 //            System.out.println("菜单错误");
 //        }
-    }
+//    }
 
     //为厨师服务的方法
     //厨师做好菜后使用
     @Override
     public void serve(Chef chef){
-        System.out.println("代理模式开始，真实服务员服务厨师");
+        System.out.println("中介者开始为厨师服务");
+        System.out.println("代理模式 服务厨师开始");
         realWaiter.serve(chef);
-        System.out.println("真实服务员服务厨师结束，代理模式结束");
-        visit(mOrder);
+        System.out.println("代理模式 服务厨师结束");
+        System.out.println("中介者结束为厨师服务");
+        //visit(mOrder);
     }
     //为客人服务的方法
     //客人点单完成后使用
     @Override
     public void serve(Order order){
-        System.out.println("代理服务订单开始");
+        System.out.println("中介者开始为订单服务");
+        System.out.println("代理模式 服务订单开始");
         realWaiter.serve(order);
-        System.out.println("代理服务订单结束");
+        System.out.println("代理模式 服务订单结束");
+        System.out.println("中介者结束为订单服务");
         lists = realWaiter.getLists();
         dishes = realWaiter.getDishes();
 //         lists =  order.givemenu();
@@ -105,13 +108,13 @@ public class Waiter implements Visitor,WaiterInterface{
     }
 
 
-    //测试使用
-    public void informChef(){
-        mChef.setDishes(dishes);
-        System.out.println("厨师已经拿到菜单");
-        /*通知厨师的方法
-          或是对订单进一步处理的方法 */
-    }
+//    //测试使用
+//    public void informChef(){
+//        mChef.setDishes(dishes);
+//        System.out.println("厨师已经拿到菜单");
+//        /*通知厨师的方法
+//          或是对订单进一步处理的方法 */
+//    }
 
     /*
     * 以下两个函数为Lists的设置与获取

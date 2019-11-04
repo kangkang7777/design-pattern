@@ -16,8 +16,8 @@ public class Adapter implements Target {
         for (String string: list){
             Item item = new Item();
             int flag = 1;
+            System.out.println("--使用建造者模式--建造了 " + string);
             switch (string){
-                System.out.println("--使用建造者模式--");
                 case "水煮鱼":
                     item.setbuilder(new BoiledFish());
                     break;
