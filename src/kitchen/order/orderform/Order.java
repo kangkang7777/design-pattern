@@ -185,12 +185,17 @@ public class Order implements Cloneable{
         if(merchs != null) {
             Memento.getInstance().setBackup(this);
             for (String i : merchs) {
-                dishlist.remove(i);
-                System.out.println("菜品" + i + "已删除。");
+                if(dishlist.contains(i)) {
+                    dishlist.remove(i);
+                    System.out.println("菜品" + i + "已删除。");
+                }
+                else{
+                    System.out.println("菜品" + i + "不存在于订单中。");
+                }
             }
         }
         else
-            System.out.println("此菜品不存在于订单中。");
+            System.out.println("此菜品不存在。");
     }
 
     /**
