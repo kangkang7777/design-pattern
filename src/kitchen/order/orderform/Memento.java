@@ -59,12 +59,13 @@ public class Memento {
     public void setBackup( Order o ) throws CloneNotSupportedException {
         Order backup = (Order)o.clone();
         if( pool.containsKey(o.getOid()) ) {
-            pool.get(o.getOid()).push(o);
+            pool.get(o.getOid()).push(backup);
         }
         else{
             Stack<Order> s = new Stack<Order>();
             s.push(o);
             pool.put(o.getOid(), s);
+            pool.get(o.getOid()).push(backup);
         }
     }
 
