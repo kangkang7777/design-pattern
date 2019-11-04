@@ -6,8 +6,8 @@ import kitchen.staff.chef.Target;
 import java.util.ArrayList;
 
 public class Adapter implements Target {
-    Waiter waiter = Waiter.getInstance();
-    ArrayList<String> list = waiter.getList();
+    private Waiter waiter = Waiter.getInstance();
+    private ArrayList<String> list = waiter.getList();
     @Override
     public ArrayList<Dish> getDishes() {
         ArrayList<Dish> dishes = new ArrayList<>();
