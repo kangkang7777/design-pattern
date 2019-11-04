@@ -17,8 +17,8 @@ public abstract class Cooker {
      * Wok:THIRD
      */
     public static int FIRST=1;
-    public static int SECOND=2;
-    public static int THIRD=3;
+    public static int SECOND=200;
+    public static int THIRD=3000;
     protected int priority;   
 
     /**
