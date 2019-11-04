@@ -112,17 +112,34 @@ public class Main {
     }
  */
 //这里是waiter的测试
-    public static void main(String[] args){
-        Chef chef = Chef.getInstance();
+//    public static void main(String[] args){
+//        Chef chef = Chef.getInstance();
+//        Waiter waiter = Waiter.getInstance();
+//        waiter.register(chef);
+//        ArrayList<String> AL = new ArrayList<>();
+//
+//        AL.add("水煮鱼");
+//        AL.add("鸡蛋汤");
+//        waiter.setLists(AL);
+//        waiter.serve();
+//        waiter.visit(waiter.getmOrder());
+//    }
+    //这里是adapter与visitor的测试
+    //测试时请将waiter中的77,78注释，并将最后一个函数解注释
+    /*public static void main(String[] args) throws CloneNotSupportedException {
         Waiter waiter = Waiter.getInstance();
-        waiter.register(chef);
-        ArrayList<String> AL = new ArrayList<>();
-
-        AL.add("水煮鱼");
-        AL.add("鸡蛋汤");
-        waiter.setLists(AL);
-        waiter.serve();
-        waiter.visit(waiter.getmOrder());
-    }
+        Order order = new Order();
+        order.setDiscount(0.8);
+        order.adddish("水煮鱼");
+        order.adddish("鸡蛋汤");
+        order.adddish("馒头");
+        waiter.register(order);
+        waiter.serve(order);
+        System.out.println("--测试访问者模式--");
+        System.out.println("----访问菜品----");
+        waiter.getDishes().get(0).accept(waiter);
+        System.out.println("----访问订单----");
+        order.accept(waiter);
+    }*/
 
 }

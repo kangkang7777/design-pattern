@@ -10,6 +10,7 @@ public class Adapter implements Target {
     private ArrayList<String> list = waiter.getLists();
     @Override
     public ArrayList<Dish> getDishes() {
+        System.out.println("--使用适配者模式--");
         ArrayList<Dish> dishes = new ArrayList<>();
         for (String string: list){
             Item item = new Item();

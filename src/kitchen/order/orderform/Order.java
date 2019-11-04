@@ -1,5 +1,6 @@
 package kitchen.order.orderform;
 import kitchen.order.merchname.MerchNameFactory;
+import kitchen.staff.Visitor;
 import kitchen.staff.Waiter;
 //import kitchen.staff.Visitor;
 
@@ -201,7 +202,7 @@ public class Order implements Cloneable{
         count++;
     }
 
-    //public void accept(Visitor visitor){
-    //    visitor.visit(this);
-    //}
+    public void accept(Visitor visitor){
+        visitor.visit(this);
+    }
 }
