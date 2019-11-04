@@ -18,10 +18,10 @@
 //     }
 
 //     public static List<String> makeOrder(String merchName){
-//         MerchNameFactory factory = new MerchNameFactory();
+//  
 
 //         List<String> names = null;
-//         names = factory.getMerchName(merchName);
+//         names = MerchNameFactory.getMerchName(merchName);
 //         return names;
 //     }
 

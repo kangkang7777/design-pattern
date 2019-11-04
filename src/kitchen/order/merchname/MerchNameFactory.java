@@ -1,7 +1,17 @@
 package kitchen.order.merchname;
 import java.util.List;
 
+/**
+ * MerchName的工厂类，可以根据商品名或编号创建MerchName类，
+ * 返回其中的商品名的List
+ */
 public class MerchNameFactory {
+    /**
+     * 根据客人的输入，将套餐和单品名转换为单品名的List
+     * 
+     * @param name 客人输入的商品名或编号
+     * @return 客人输入的内容对应的商品名称的List
+     */
     static public List<String> getMerchName(String name){
         MerchName merchName=null;
         switch(name){
