@@ -58,7 +58,7 @@ public class Order implements Cloneable{
      * 设置本订单的服务员
      * @param w
      */
-    private void setWaiter(Waiter w){
+    public void setWaiter(Waiter w){
         this.waiter = w;
     }
 

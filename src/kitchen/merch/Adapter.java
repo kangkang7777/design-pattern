@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Adapter implements Target {
     private Waiter waiter = Waiter.getInstance();
-    private ArrayList<String> list = waiter.getList();
+    private ArrayList<String> list = waiter.getLists();
     @Override
     public ArrayList<Dish> getDishes() {
         ArrayList<Dish> dishes = new ArrayList<>();

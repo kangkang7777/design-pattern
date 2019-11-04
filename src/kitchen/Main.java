@@ -9,6 +9,7 @@ import kitchen.merch.Adapter;
 import kitchen.merch.Dish;
 import kitchen.order.orderform.Memento;
 import kitchen.order.orderform.Order;
+import kitchen.staff.Waiter;
 import kitchen.staff.chef.Chef;
 import kitchen.time.Time;
 
@@ -71,24 +72,24 @@ public class Main {
 //        o.giveorder();
 
 
-    public static void main(String[] args)
-    {
-
-        Chef chef=Chef.getInstance();//获取厨师单例
-        Ingredient ingredient;
-        Container container;
-        Fridge fridge=Fridge.getInstance();
-        fridge.put(IngredientType.FISH,100);
-        Cabinet cabinet=Cabinet.getInstance();
-        cabinet.put(IngredientType.FLOUR,100);
-        ArrayList<String> strings=new ArrayList<>();
-        strings.add("BoiledFish");
-        strings.add("SteamedBread");
-        Adapter adapter=new Adapter();
-        ArrayList<Dish>dishes=adapter.getDishes(strings);
-        chef.processMerchs(dishes);
-
-    }
+//    public static void main(String[] args)
+//    {
+//
+//        Chef chef=Chef.getInstance();//获取厨师单例
+//        Ingredient ingredient;
+//        Container container;
+//        Fridge fridge=Fridge.getInstance();
+//        fridge.put(IngredientType.FISH,100);
+//        Cabinet cabinet=Cabinet.getInstance();
+//        cabinet.put(IngredientType.FLOUR,100);
+//        ArrayList<String> strings=new ArrayList<>();
+//        strings.add("BoiledFish");
+//        strings.add("SteamedBread");
+//        Adapter adapter=new Adapter();
+//        ArrayList<Dish>dishes=adapter.getDishes(strings);
+//        chef.processMerchs(dishes);
+//
+//    }
 
 
 
@@ -110,4 +111,18 @@ public class Main {
         Time.getInstance().update(15);//时间流失
     }
  */
+//这里是waiter的测试
+    public static void main(String[] args){
+        Chef chef = Chef.getInstance();
+        Waiter waiter = Waiter.getInstance();
+        waiter.register(chef);
+        ArrayList<String> AL = new ArrayList<>();
+
+        AL.add("水煮鱼");
+        AL.add("鸡蛋汤");
+        waiter.setLists(AL);
+        waiter.serve();
+        waiter.visit(waiter.getmOrder());
+    }
+
 }

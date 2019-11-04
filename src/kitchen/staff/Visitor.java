@@ -5,7 +5,7 @@ import kitchen.order.orderform.Order;
 import java.util.ArrayList;
 
 public interface Visitor {
-    void visit(Dish dish);
+    double visit(Dish dish);
     void visit(Order order);
     /*@Override
     public void visit(Dish dish) {
