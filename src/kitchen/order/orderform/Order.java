@@ -129,6 +129,7 @@ public class Order implements Cloneable{
      * 计算订单最终实付金额。
      */
     public void pay(){
+        System.out.println("--使用桥接模式--");
         System.out.println("顾客共消费：" + (this.bill * this.discount) + "元。");
     }
 

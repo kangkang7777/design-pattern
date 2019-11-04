@@ -11,11 +11,13 @@ public class Adapter implements Target {
     @Override
     public ArrayList<Dish> getDishes() {
         System.out.println("--使用适配者模式--");
+        System.out.println("--使用外观模式--");
         ArrayList<Dish> dishes = new ArrayList<>();
         for (String string: list){
             Item item = new Item();
             int flag = 1;
             switch (string){
+                System.out.println("--使用建造者模式--");
                 case "水煮鱼":
                     item.setbuilder(new BoiledFish());
                     break;
