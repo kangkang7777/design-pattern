@@ -1,14 +1,18 @@
 package kitchen.merch;
 
 import kitchen.staff.Visitor;
-
+/**
+ * 鸡蛋汤的实例化
+ */
 public class EggSoup extends Dish implements DishBuilder{
     private Dish ndish;
 
     public EggSoup(){
         this.ndish = new Dish();
     }
-
+    /**
+     * 以下依次是名称、餐具、价格、原料、厨具、原料数量
+     */
     @Override
     public void setName(){
         ndish.setName("鸡蛋汤");
@@ -33,12 +37,18 @@ public class EggSoup extends Dish implements DishBuilder{
     public void setCount(){
         ndish.setCount(4);
     }
+    /**
+     * 生成以后通过这个函数来调用此实例
+     */
     @Override
     public Dish getDish(){
         return ndish;
     }
+    /**
+     * visiter的访问函数
+     */
     @Override
     public void accept(Visitor visitor){
-        visitor.visit(this);;
+        this.getDish().accept(visitor);
     }
 }

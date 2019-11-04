@@ -1,9 +1,10 @@
 package kitchen.order.merchname;
+import java.util.Arrays;
 import java.util.List;
 //水煮鱼套餐：水煮鱼+炒青菜+馒头
 public class BoiledFishSet implements MerchName {
-    public final static List<String> names= List.of("水煮鱼","炒青菜","馒头");
-    public final static List<MerchName> merchs=List.of(new BoiledFish(),new StirFriedVegetables(),new SteamedBread());
+    public final static List<String> names= Arrays.asList("水煮鱼","炒青菜","馒头");
+    public final static List<MerchName> merchs=Arrays.asList(new BoiledFish(),new StirFriedVegetables(),new SteamedBread());
 
     // public BoiledFishSet() {
     //     names = new List<>();

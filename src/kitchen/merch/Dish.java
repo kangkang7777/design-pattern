@@ -1,20 +1,34 @@
 package kitchen.merch;
 
 import kitchen.staff.Visitor;
-
+/**
+ * 菜品的主类
+ */
 public class Dish {
-    //商品的名字
+    /**
+     * 商品的名字
+     */
     private String name;
-    //商品的价格
+    /**
+     * 商品的价格
+     */
     private double price;
-    //商品使用的餐具
+    /**
+     * 商品使用的餐具
+     */
     private String pack;
-    //商品的原料和需求的数量
+    /**
+     * 商品的原料和需求的数量
+     */
     private String material;
     private int count;
-    //商品使用的厨具
+    /**
+     * 商品使用的厨具
+     */
     private String cooker;
-    //创建和调用的函数
+    /**
+     * 以下的方法分别是设置和获取菜品的名字、餐具、价格、原料、原料数目、厨具
+     */
     public String getName(){
         return name;
     }
@@ -51,8 +65,10 @@ public class Dish {
     public void setCooker(String cooker) {
         this.cooker = cooker;
     }
-    //可能之后给厨师使用的接口，目前测试用
-    //public String show(){
-    //    return "菜名:"+getName()+" 餐具:"+getPack()+" 价格:"+getPrice()+" 原料:"+getMaterial()+" 厨具:"+getCooker();
-    //}
+    /**
+     * 调用菜品的函数
+     */
+    public void accept(Visitor visitor){
+        visitor.visit(this);
+    }
 }

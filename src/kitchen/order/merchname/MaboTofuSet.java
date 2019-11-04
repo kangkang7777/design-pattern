@@ -1,11 +1,12 @@
 package kitchen.order.merchname;
 
+import java.util.Arrays;
 import java.util.List;
 
 //麻婆豆腐套餐：麻婆豆腐+鸡蛋汤+馒头
 public class MaboTofuSet implements MerchName {
-    public final static List<String> names = List.of("麻婆豆腐", "鸡蛋汤", "馒头");
-    public final static List<MerchName> merchs = List.of(new MaboTofu(), new EggSoup(), new SteamedBread());
+    public final static List<String> names = Arrays.asList("麻婆豆腐", "鸡蛋汤", "馒头");
+    public final static List<MerchName> merchs = Arrays.asList(new MaboTofu(), new EggSoup(), new SteamedBread());
 
     // public MaboTofuSet() {
     //     names = new List<>();

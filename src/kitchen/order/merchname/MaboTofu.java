@@ -1,8 +1,9 @@
 package kitchen.order.merchname;
+import java.util.Collections;
 import java.util.List;
 //单品麻婆豆腐
 public class MaboTofu implements MerchName {
-    public final static List<String> names=List.of("麻婆豆腐");
+    public final static List<String> names= Collections.singletonList("麻婆豆腐");
     // public List<MerchName> merchs;
 
     // public MaboTofu() {
