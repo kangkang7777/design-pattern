@@ -1,14 +1,18 @@
 package kitchen.merch;
 
 import kitchen.staff.Visitor;
-
+/**
+ * 馒头的实例化
+ */
 public class SteamedBread implements DishBuilder{
     private Dish ndish;
 
     public SteamedBread(){
         this.ndish = new Dish();
     }
-
+    /**
+     * 以下依次是名称、餐具、价格、原料、厨具、原料数量
+     */
     @Override
     public void setName(){
         ndish.setName("蒸馒头");
@@ -33,10 +37,16 @@ public class SteamedBread implements DishBuilder{
     public void setCount(){
         ndish.setCount(1);
     }
+    /**
+     * 生成以后通过这个函数来调用此实例
+     */
     @Override
     public Dish getDish(){
         return ndish;
     }
+    /**
+     * visiter的访问函数
+     */
     @Override
     public void accept(Visitor visitor){
         this.getDish().accept(visitor);
