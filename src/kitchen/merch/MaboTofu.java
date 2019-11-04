@@ -39,6 +39,6 @@ public class MaboTofu implements DishBuilder{
     }
     @Override
     public void accept(Visitor visitor){
-        visitor.visit(this);
+        this.getDish().accept(visitor);
     }
 }

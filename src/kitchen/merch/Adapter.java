@@ -1,30 +1,33 @@
 package kitchen.merch;
 import java.util.ArrayList;
 
+import kitchen.staff.Waiter;
 import kitchen.staff.chef.Target;
 import java.util.ArrayList;
 
 public class Adapter implements Target {
+    Waiter waiter = Waiter.getInstance();
+    ArrayList<String> list = waiter.getList();
     @Override
-    public ArrayList<Dish> getDishes(ArrayList<String> list) {
+    public ArrayList<Dish> getDishes() {
         ArrayList<Dish> dishes = new ArrayList<>();
         for (String string: list){
             Item item = new Item();
             int flag = 1;
             switch (string){
-                case "BoiledFish":
+                case "水煮鱼":
                     item.setbuilder(new BoiledFish());
                     break;
-                case "EggSoup":
+                case "鸡蛋汤":
                     item.setbuilder(new EggSoup());
                     break;
-                case "MaboTofu":
+                case "麻婆豆腐":
                     item.setbuilder(new MaboTofu());
                     break;
-                case "SteamedBread":
+                case "馒头":
                     item.setbuilder(new SteamedBread());
                     break;
-                case "StirFriedVegetables":
+                case "炒青菜":
                     item.setbuilder(new StirFriedVegetables());
                     break;
                 default:flag = 0;
