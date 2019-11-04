@@ -8,7 +8,7 @@ import kitchen.staff.chef.Chef;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Waiter implements Visitor{
+public class Waiter implements Visitor,WaiterInterface{
     //厨师实例
     private Chef mChef;
     
@@ -21,10 +21,15 @@ public class Waiter implements Visitor{
     //订单实例
     private Order mOrder;
 
+    //真实的服务员
+    private RealWaiter realWaiter = RealWaiter.getInstance();
+
     private static Waiter instance = new Waiter();
     private Waiter(){
         if (instance == null) {
             instance = this;
+            //测试使用，正常使用时可注释下一行
+            realWaiter.setmWaiter(this);
         } else {
             throw new IllegalStateException("Already initialized.");
         }
@@ -38,51 +43,69 @@ public class Waiter implements Visitor{
     //登记厨师和订单
     public void register(Chef chef){
         mChef = chef;
+        realWaiter.setmChef(chef);
         chef.setWaiter(this);
-        System.out.println("厨师已登记到服务员处");
+        System.out.println("中介者模式：厨师已登记到服务员处");
     }
     public void register(Order order){
         mOrder = order;
+        realWaiter.setmOrder(order);
         order.setWaiter(this);
-        System.out.println("订单已获得服务员受理");
+        System.out.println("中介者模式：订单已获得服务员受理");
     }
 
     //测试用serve函数
     public void serve(){
-        if(lists != null){
-            Adapter adapter = new Adapter();
-            dishes = adapter.getDishes();
-            System.out.println("订单开始传递给厨师");
-            informChef();
-        }
-        else {
-            System.out.println("菜单错误");
-        }
+        System.out.println("测试代理服务开始");
+        realWaiter.serve();
+        System.out.println("测试代理服务结束");
+//        if(lists != null){
+//            Adapter adapter = new Adapter();
+//            dishes = adapter.getDishes();
+//            System.out.println("订单开始传递给厨师");
+//            informChef();
+//        }
+//        else {
+//            System.out.println("菜单错误");
+//        }
     }
 
     //为厨师服务的方法
     //厨师做好菜后使用
+    @Override
     public void serve(Chef chef){
-        System.out.println("服务员已经拿到菜了");
+        System.out.println("代理模式开始，真实服务员服务厨师");
+        realWaiter.serve(chef);
+        System.out.println("真实服务员服务厨师结束，代理模式结束");
         visit(mOrder);
     }
     //为客人服务的方法
     //客人点单完成后使用
+    @Override
     public void serve(Order order){
-         lists =  order.givemenu();
-         if(lists != null) {
-             Adapter adapter = new Adapter();
-             dishes = adapter.getDishes();
-             //此步可将订单进一步处理再传递给厨师，测试visitor的时候注释掉
-             System.out.println("订单开始传递给厨师");
-             informChef();
-         }
-         else
-             System.out.println("菜单有误");
+        System.out.println("代理服务订单开始");
+        realWaiter.serve(order);
+        System.out.println("代理服务订单结束");
+        lists = realWaiter.getLists();
+        dishes = realWaiter.getDishes();
+//         lists =  order.givemenu();
+//         if(lists != null) {
+//             Adapter adapter = new Adapter();
+//             dishes = adapter.getDishes();
+//             System.out.println("代理服务订单开始");
+//             realWaiter.serve(order);
+//             System.out.println("代理服务订单结束");
+//             //此步可将订单进一步处理再传递给厨师，测试visitor的时候注释掉
+////             System.out.println("订单开始传递给厨师");
+////             informChef();
+//         }
+//         else
+//             System.out.println("菜单有误");
 
     }
 
 
+    //测试使用
     public void informChef(){
         mChef.setDishes(dishes);
         System.out.println("厨师已经拿到菜单");
