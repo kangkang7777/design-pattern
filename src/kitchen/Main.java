@@ -7,6 +7,7 @@ import kitchen.ingredient.Ingredient;
 import kitchen.ingredient.IngredientType;
 import kitchen.merch.Adapter;
 import kitchen.merch.Dish;
+import kitchen.order.merchname.MerchNameFactory;
 import kitchen.order.orderform.Memento;
 import kitchen.order.orderform.Order;
 import kitchen.staff.RealWaiter;
@@ -142,5 +143,46 @@ public class Main {
         System.out.println("----访问订单----");
         order.accept(waiter);
     }*/
+
+    
+    public static void TestNullObject(){
+        //空对象模式测试
+        //顾客点菜时点到不存在的商品就会用到空对象模式
+        List<String> names= null;
+
+        //试图点一个不存在的菜
+        String order="回锅肉";
+        names=MerchNameFactory.getMerchName(order);
+
+        if(names==null){
+            System.out.print("没有");
+            System.out.println(order);
+        }else{
+            for(String s:names){
+                System.out.println("点的菜包括：");
+                System.out.println(s);
+            }
+        }
+    }
+
+    public static void TestComposite(){
+        //组合模式测试
+        //套餐名类中包含了若干单品名类，体现了组合模式
+        List<String> names= null;
+
+        //点套餐
+        String order="水煮鱼套餐";
+        names=MerchNameFactory.getMerchName(order);
+
+        if(names==null){
+            System.out.println("没有");
+            System.out.println(order);
+        }else{
+            for(String s:names){
+                System.out.println("点的菜包括：");
+                System.out.println(s);
+            }
+        }
+    }
 
 }
