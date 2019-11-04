@@ -9,6 +9,7 @@ import kitchen.merch.Adapter;
 import kitchen.merch.Dish;
 import kitchen.order.orderform.Memento;
 import kitchen.order.orderform.Order;
+import kitchen.staff.RealWaiter;
 import kitchen.staff.Waiter;
 import kitchen.staff.chef.Chef;
 import kitchen.time.Time;
@@ -112,18 +113,18 @@ public class Main {
     }
  */
 //这里是waiter的测试
-//    public static void main(String[] args){
-//        Chef chef = Chef.getInstance();
-//        Waiter waiter = Waiter.getInstance();
-//        waiter.register(chef);
-//        ArrayList<String> AL = new ArrayList<>();
-//
-//        AL.add("水煮鱼");
-//        AL.add("鸡蛋汤");
-//        waiter.setLists(AL);
-//        waiter.serve();
-//        waiter.visit(waiter.getmOrder());
-//    }
+    public static void main(String[] args){
+        Chef chef = Chef.getInstance();
+        Waiter waiter = Waiter.getInstance();
+        waiter.register(chef);
+        ArrayList<String> AL = new ArrayList<>();
+
+        AL.add("水煮鱼");
+        AL.add("鸡蛋汤");
+        waiter.setLists(AL);
+        waiter.serve();
+        waiter.visit(waiter.getmOrder());
+    }
     //这里是adapter与visitor的测试
     //测试时请将waiter中的77,78注释，并将最后一个函数解注释
     /*public static void main(String[] args) throws CloneNotSupportedException {
