@@ -51,7 +51,7 @@ public class Main {
         singletonTest();
         responsibilityChainTest();
         abstractFactory();
-
+        factoryTest();
 
 
         ////////////////////设计模式测试////////////////////
@@ -269,7 +269,7 @@ public class Main {
 
     /**
      *对组合模式进行测试
-     套餐名类中包含了若干单品名类，体现了组合模式
+     *套餐名类中包含了若干单品名类，体现了组合模式
      */
     public static void compositeTest(){
         List<String> names= null;
@@ -286,6 +286,36 @@ public class Main {
             System.out.println("点的菜包括：");
             for(String s:names){
                 System.out.println(s);
+            }
+        }
+    }
+
+     /**
+     *对工厂模式进行测试
+     *工厂类通过用户输入生产不同的菜名类，并返回菜名列表
+     */
+    public static void factoryTest(){
+        List<String> names= null;
+
+        //点不同的商品
+        List<String> orders=Arrays.asList("水煮鱼","炒青菜","麻婆豆腐套餐");
+        //点餐
+        
+        for(String s:orders){
+            System.out.print("现在点");
+            System.out.println(s);
+
+            names=MerchNameFactory.getMerchName(s);
+
+            //如果点的菜不存在，就会获取到空指针，如果存在，会获取到单品名称的List
+            if(names==null){
+                System.out.println("没有");
+                System.out.println(s);
+            }else{
+                System.out.println("点的菜包括：");
+                for(String ss:names){
+                    System.out.println(ss);
+                }
             }
         }
     }
