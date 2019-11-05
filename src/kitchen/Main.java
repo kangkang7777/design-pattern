@@ -45,7 +45,9 @@ public class Main {
         commandTest();
         strategyTest();
         decoratorTest();
-
+        nullObjectTest();
+        compositeTest();
+        
 
 
         ////////////////////设计模式测试////////////////////
@@ -219,19 +221,19 @@ public class Main {
     ////////////////////设计模式测试////////////////////
 
     /**
-     *
+     *对空对象模式进行测试
+     *顾客点菜时点到不存在的商品就会用到空对象模式
      */
-    public static void TestNullObject(){
-        //空对象模式测试
-        //顾客点菜时点到不存在的商品就会用到空对象模式
+    public static void nullObjectTest(){
         List<String> names= null;
 
         //试图点一个不存在的菜
         String order="回锅肉";
         names=MerchNameFactory.getMerchName(order);
 
+        //如果点的菜不存在，就会获取到空指针，如果存在，会获取到单品名称的List
         if(names==null){
-            System.out.print("没有");
+            System.out.print("我们没有");
             System.out.println(order);
         }else{
             for(String s:names){
@@ -242,17 +244,17 @@ public class Main {
     }
 
     /**
-     *
+     *对组合模式进行测试
+     套餐名类中包含了若干单品名类，体现了组合模式
      */
-    public static void TestComposite(){
-        //组合模式测试
-        //套餐名类中包含了若干单品名类，体现了组合模式
+    public static void compositeTest(){
         List<String> names= null;
 
         //点套餐
         String order="水煮鱼套餐";
         names=MerchNameFactory.getMerchName(order);
 
+        //如果点的菜不存在，就会获取到空指针，如果存在，会获取到单品名称的List
         if(names==null){
             System.out.println("没有");
             System.out.println(order);
