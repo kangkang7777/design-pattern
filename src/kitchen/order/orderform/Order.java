@@ -211,6 +211,10 @@ public class Order implements Cloneable{
         count++;
     }
 
+    /**
+     * visitor的接受函数
+     * @param visitor 访问者
+     */
     public void accept(Visitor visitor){
         visitor.visit(this);
     }

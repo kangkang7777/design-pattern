@@ -12,7 +12,7 @@ public class Item {
     /**
      * 判断产生何种菜品
      */
-    public void setbuilder(DishBuilder dish) {
+    public void setBuilder(DishBuilder dish) {
         this.ndish = dish;
     }
     /**

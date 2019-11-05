@@ -1,22 +1,9 @@
 package kitchen;
 
-import kitchen.container.Cabinet;
-import kitchen.container.Container;
-import kitchen.container.Fridge;
-import kitchen.ingredient.Ingredient;
-import kitchen.ingredient.IngredientType;
-import kitchen.merch.Adapter;
-import kitchen.merch.Dish;
-import kitchen.order.orderform.Memento;
+import com.sun.org.apache.xpath.internal.operations.Or;
 import kitchen.order.orderform.Order;
-import kitchen.staff.RealWaiter;
 import kitchen.staff.Waiter;
 import kitchen.staff.chef.Chef;
-import kitchen.time.Time;
-
-import javax.swing.*;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  *部分模块的测试请写在此Main中，标注信息并注释
@@ -106,7 +93,7 @@ public class Main {
     public static void main(String[] args) throws CloneNotSupportedException {
 
         chefTest();//对chef包进行测试，包含单例，命令，抽象工厂,责任链，中介者，代理模式
-
+        //testAVBFB();//对adapter、visitor、builder、facade、bridge的测试
     }
 
 //这里是container与ingredient的测试
@@ -130,23 +117,29 @@ public class Main {
 //public static void main(String[] args){
 //    testMediatorAndProxy();
 //}
-//    //这里是adapter与visitor的测试
-//    //测试时请将waiter中的77,78注释，并将最后一个函数解注释
-//    /*public static void main(String[] args) throws CloneNotSupportedException {
-//        Waiter waiter = Waiter.getInstance();
-//        Order order = new Order();
-//        order.setDiscount(0.8);
-//        order.adddish("水煮鱼");
-//        order.adddish("鸡蛋汤");
-//        order.adddish("馒头");
-//        waiter.register(order);
-//        waiter.serve(order);
-//        System.out.println("--测试访问者模式--");
-//        System.out.println("----访问菜品----");
-//        waiter.getDishes().get(0).accept(waiter);
-//        System.out.println("----访问订单----");
-//        order.accept(waiter);
-//    }*/
+
+    /**
+     * 这里是adapter、visitor、builder、facade、bridge的测试11-13,19-20
+     * @throws CloneNotSupportedException
+     */
+    public static void testAVBFB() throws CloneNotSupportedException {
+        Waiter waiter = Waiter.getInstance();
+        Chef chef = Chef.getInstance();
+        Order order = new Order();
+        order.setDiscount(0.8);
+        order.adddish("水煮鱼");
+        order.adddish("鸡蛋汤");
+        order.adddish("馒头");
+        waiter.register(order);
+        waiter.register(chef);
+        waiter.serve(order);
+        System.out.println("--测试访问者模式--");
+        System.out.println("----访问菜品----");
+        waiter.getDishes().get(0).accept(waiter);
+        System.out.println("----访问订单----");
+        order.accept(waiter);
+    }
+
 //    public static void testPrototype() throws CloneNotSupportedException {
 //        Order o = new Order();
 //        System.out.println("o订单的生成使用了Order类的构造器");

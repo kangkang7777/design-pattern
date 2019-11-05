@@ -66,7 +66,7 @@ public class Dish {
         this.cooker = cooker;
     }
     /**
-     * 调用菜品的函数
+     * visitor的接受函数
      */
     public void accept(Visitor visitor){
         visitor.visit(this);

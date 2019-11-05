@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public interface Target {
     /**
-     * 获取菜品列表
+     * 请求获取菜品列表
      * @return ArrayList<Dish>
      */
     ArrayList<Dish> getDishes();

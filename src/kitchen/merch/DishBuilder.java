@@ -19,7 +19,7 @@ public interface DishBuilder {
      */
     Dish getDish();
     /**
-     * visiter的访问函数
+     * visitor的接受函数
      */
     void accept(Visitor visitor);
 }

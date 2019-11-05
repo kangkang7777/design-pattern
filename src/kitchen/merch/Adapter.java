@@ -3,11 +3,19 @@ import java.util.ArrayList;
 
 import kitchen.staff.Waiter;
 import kitchen.staff.chef.Target;
-import java.util.ArrayList;
 
+/**
+ * 实现厨师的请求
+ */
 public class Adapter implements Target {
+    //被适配的对象
     private Waiter waiter = Waiter.getInstance();
+    //被适配的字符串
     private ArrayList<String> list = waiter.getLists();
+    /**
+     * 适配函数，将字符串列表转换为菜的列表
+     * @return 菜的列表
+     */
     @Override
     public ArrayList<Dish> getDishes() {
         System.out.println("--使用适配者模式--");
@@ -19,19 +27,19 @@ public class Adapter implements Target {
             System.out.println("--使用建造者模式--建造了 " + string);
             switch (string){
                 case "水煮鱼":
-                    item.setbuilder(new BoiledFish());
+                    item.setBuilder(new BoiledFish());
                     break;
                 case "鸡蛋汤":
-                    item.setbuilder(new EggSoup());
+                    item.setBuilder(new EggSoup());
                     break;
                 case "麻婆豆腐":
-                    item.setbuilder(new MaboTofu());
+                    item.setBuilder(new MaboTofu());
                     break;
                 case "馒头":
-                    item.setbuilder(new SteamedBread());
+                    item.setBuilder(new SteamedBread());
                     break;
                 case "炒青菜":
-                    item.setbuilder(new StirFriedVegetables());
+                    item.setBuilder(new StirFriedVegetables());
                     break;
                 default:flag = 0;
             }

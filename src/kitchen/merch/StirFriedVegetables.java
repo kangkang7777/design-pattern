@@ -45,7 +45,7 @@ public class StirFriedVegetables implements DishBuilder {
         return ndish;
     }
     /**
-     * visiter的访问函数
+     * visitor的接受函数
      */
     @Override
     public void accept(Visitor visitor){
