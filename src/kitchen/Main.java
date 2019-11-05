@@ -16,6 +16,7 @@ import kitchen.staff.chef.Chef;
 import kitchen.time.Time;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -27,47 +28,44 @@ public class Main {
     public static void main(String[] args) throws CloneNotSupportedException {
         ////////////////////综合测试////////////////////
 
-
-
+        comprehensiveTest();
 
         ////////////////////综合测试////////////////////
 
         ////////////////////模块测试////////////////////
-        //chefTest();//对chef包进行测试，包含单例，命令，抽象工厂,责任链，中介者，代理模式
-        //testAVBFB();//对adapter、visitor、builder、facade、bridge的测试
+        //chefTest();//对chef包进行测试
         //containerTest();//对container包的测试
         //ingredientTest();//对ingredient包对测试
         //waiterTest();//对waiter的测试
-
+        //OrderTest();//对order包的测试
         ////////////////////模块测试////////////////////
 
         ////////////////////设计模式测试////////////////////
-        commandTest();
-        strategyTest();
-        decoratorTest();
-        nullObjectTest();
-        compositeTest();
-        mediatorAndProxyTest();//对中介者和代理模式测试
-        singletonTest();
-        responsibilityChainTest();
-        abstractFactory();
-        factoryTest();
-
-
+//        testAVBFB();//适配器、访问者、建造者、外观、桥接、模版的测试
+//        testMemento();//备忘录测试
+//        testPrototype();//原型测试
+//        commandTest();//命令测试
+//        strategyTest();//策略测试
+//        decoratorTest();//装饰器测试
+//        compositeTest();//组合模式测试
+//        mediatorAndProxyTest();//中介、代理模式测试
+//        observerTest();//观察者、迭代器、状态模式测试
+//        testFlyweight();//享元测试
+//        nullObjectTest();//空对象测试
+//        singletonTest();//单例测试
+//        responsibilityChainTest();//责任链测试
+//        abstractFactory();//抽象工厂测试
+//        factoryTest();//工厂测试
+//        interpreterTest();
         ////////////////////设计模式测试////////////////////
 
     }
 
-
-
-    ////////////////////模块测试////////////////////
-
     /**
-     * 对Order进行测试：
-     * 包含的设计模式：
+     * 综合测试
+     * 这里包含了所有共24种设计模式
      */
-    public static void OrderTest() throws CloneNotSupportedException {
-
+    public static void comprehensiveTest() throws CloneNotSupportedException {
         Scanner stdIn = new Scanner(System.in);
         Order o;
         Order o1 = new Order();
@@ -80,16 +78,13 @@ public class Main {
         if(isY.equals("y")|| isY.equals("Y") || isY.equals("是") || isY.equals("shi")){
             o = (Order)o2.clone();
             o.adjustclone();
-
         }
         else{
             o = (Order)o1.clone();
-
         }
         System.out.println("请问一共有几位客人？");
         int number = stdIn.nextInt();
         o.setTablesize(number);
-
 
         System.out.println("----Menu----");
         System.out.println("1. 水煮鱼  2. 鸡蛋汤  3. 麻婆豆腐 4. 炒青菜 5. 馒头");
@@ -113,27 +108,70 @@ public class Main {
             }
         }
         System.out.println("点餐完成！");
+        Waiter waiter = Waiter.getInstance();
+        Chef chef = Chef.getInstance();
+        o.setWaiter(waiter);
+        //找到服务员为订单和厨师服务
+        waiter.register(chef);
+        waiter.register(o);
+        //订单填写完成，交给服务员，服务员将其中的信息交给厨师
         o.giveorder();
+
     }
+
+    ////////////////////模块测试////////////////////
 
     /**
-     * 对waiter进行测试：
+     * 对Order进行测试：
      * 包含的设计模式：
      */
-/*
-    public static void WaiterTest(){
-        Chef chef = Chef.getInstance();
-        Waiter waiter = Waiter.getInstance();
-        waiter.register(chef);
-        ArrayList<String> AL = new ArrayList<>();
+    public static void OrderTest() throws CloneNotSupportedException {
 
-        AL.add("水煮鱼");
-        AL.add("鸡蛋汤");
-        waiter.setLists(AL);
-        waiter.serve();
-        waiter.visit(waiter.getmOrder());
+        Scanner stdIn = new Scanner(System.in);
+        Order o;
+        Order o1 = new Order();
+        o1.setDiscount(1);
+        Order o2 = new Order();
+        o2.setDiscount(0.88);
+        //菜单打印
+        System.out.println("欢迎来到谢康大厨掌勺的健康餐厅，请问您是VIP吗？  是（Y）/不是（N）");
+        String isY = stdIn.next();
+        if(isY.equals("y")|| isY.equals("Y") || isY.equals("是") || isY.equals("shi")){
+            o = (Order)o2.clone();
+            o.adjustclone();
+        }
+        else{
+            o = (Order)o1.clone();
+        }
+        System.out.println("请问一共有几位客人？");
+        int number = stdIn.nextInt();
+        o.setTablesize(number);
+
+        System.out.println("----Menu----");
+        System.out.println("1. 水煮鱼  2. 鸡蛋汤  3. 麻婆豆腐 4. 炒青菜 5. 馒头");
+        System.out.println("6. 水煮鱼套餐 7. 麻婆豆腐套餐 -1. 删除菜品  -2. 回退上一步 0. 完成订单");
+        System.out.println("请点餐：");
+        String dishname = "";
+        while(true){
+            dishname = stdIn.next();
+            if(dishname.equals("0") || dishname.equals("完成订单"))
+                break;
+            else if(dishname.equals("-1") || dishname.equals("删除菜品")) {
+                System.out.println("请输入要删除的菜品名字或编号：");
+                String ddish = stdIn.next();
+                o.canceldish(ddish);
+            }
+            else if(dishname.equals("-2") || dishname.equals("回退") || dishname.equals("回退上一步")){
+                o = Memento.getInstance().getBackup(o);
+            }
+            else {
+                o.adddish(dishname);
+            }
+        }
+        System.out.println("点餐完成！");
+        //o.giveorder();
     }
-    */
+
     /**
      * 对container进行测试
      * 包含的设计模式：单例、迭代器
@@ -195,7 +233,7 @@ public class Main {
 
     /**
      * 对chef做菜功能进行测试：
-     * 包含的设计模式：单例，命令，抽象工厂，责任链，中介者，代理模式
+     * 包含的设计模式：单例，命令，抽象工厂，责任链，中介者，代理，模版模式
      * @throws CloneNotSupportedException
      */
     private  static  void chefTest() throws CloneNotSupportedException {
@@ -214,10 +252,10 @@ public class Main {
         System.out.println("----访问订单----");
         order.accept(waiter);
         System.out.println("-责任链模式测试开始-");
+        System.out.println("-模版模式测试开始-");
         System.out.println("--命令模式测试开始--");
         System.out.println("抽象工厂模式测试开始");
         chef.processMerchs(chef.getDishes());
-
     }
 
     /**
@@ -243,6 +281,15 @@ public class Main {
     ////////////////////模块测试////////////////////
 
     ////////////////////设计模式测试////////////////////
+
+    /**
+     * 单例模式测试
+     */
+    public static  void  singletonTest(){
+        System.out.println("--单例模式测试开始--");
+        Chef chef=Chef.getInstance();
+        System.out.println("--单例模式测试开始--");
+    }
 
     /**
      *对空对象模式进行测试
@@ -291,37 +338,7 @@ public class Main {
     }
 
      /**
-     *对工厂模式进行测试
-     *工厂类通过用户输入生产不同的菜名类，并返回菜名列表
-     */
-    public static void factoryTest(){
-        List<String> names= null;
-
-        //点不同的商品
-        List<String> orders=Arrays.asList("水煮鱼","炒青菜","麻婆豆腐套餐");
-        //点餐
-        
-        for(String s:orders){
-            System.out.print("现在点");
-            System.out.println(s);
-
-            names=MerchNameFactory.getMerchName(s);
-
-            //如果点的菜不存在，就会获取到空指针，如果存在，会获取到单品名称的List
-            if(names==null){
-                System.out.println("没有");
-                System.out.println(s);
-            }else{
-                System.out.println("点的菜包括：");
-                for(String ss:names){
-                    System.out.println(ss);
-                }
-            }
-        }
-    }
-
-     /**
-     * 这里是adapter、visitor、builder、facade、bridge的测试11-13,19-20
+     * 这里是适配器、访问者、建造者、外观、桥接、模版测试
      * @throws CloneNotSupportedException
      */
     public static void testAVBFB() throws CloneNotSupportedException {
@@ -336,6 +353,7 @@ public class Main {
         waiter.register(chef);
         waiter.serve(order);
         System.out.println("--测试访问者模式--");
+        System.out.println("--测试模版模式--");
         System.out.println("----访问菜品----");
         waiter.getDishes().get(0).accept(waiter);
         System.out.println("----访问订单----");
@@ -343,7 +361,7 @@ public class Main {
     }
 
     /**
-     *
+     *原型模式
      */
     public static void testPrototype() throws CloneNotSupportedException {
         Order o = new Order();
@@ -357,7 +375,7 @@ public class Main {
     }
 
     /**
-     *
+     *备忘录模式
      */
     public static void testMemento() throws CloneNotSupportedException {
         Order o = new Order();
@@ -469,12 +487,104 @@ public class Main {
         System.out.println("食物状态改变，这里用到了策略模式");
     }
 
+    /**
+     * 责任链模式测试
+     */
+    public static void responsibilityChainTest() throws CloneNotSupportedException {
+        Chef chef=Chef.getInstance();
+        Waiter waiter = Waiter.getInstance();
+        waiter.register(chef);
+        Order order = new Order();
+        order.setDiscount(0.8);
+        order.adddish("水煮鱼");
+        order.adddish("鸡蛋汤");
+        order.adddish("馒头");
+        waiter.register(order);
+        waiter.serve(order);//把dishes传进Chef的成员变量
+        System.out.println("----访问订单----");
+        order.accept(waiter);
+        System.out.println("--责任链模式测试开始--");
+        chef.processMerchs(chef.getDishes());
+        System.out.println("--责任链模式测试结束--");
+    }
 
-        /**
-         * design pattern: Observer、Iterator、State
-         * description: After 100 ticks, egg will be stale but flour will not. Firstly put these 2 ingredients into the cabinet
-         * and let time tick 99 times, and see what happens. Tick one more time, see if the egg is stale.
-         */
+    /**
+     * 抽象工厂模式测试
+     */
+    public static void abstractFactory() throws CloneNotSupportedException {
+        Chef chef=Chef.getInstance();
+        Waiter waiter = Waiter.getInstance();
+        waiter.register(chef);
+        Order order = new Order();
+        order.setDiscount(0.8);
+        order.adddish("水煮鱼");
+        order.adddish("鸡蛋汤");
+        order.adddish("馒头");
+        order.adddish("炒青菜");
+        order.adddish("麻婆豆腐");
+        waiter.register(order);
+        waiter.serve(order);//把dishes传进Chef的成员变量
+        System.out.println("----访问订单----");
+        order.accept(waiter);
+        System.out.println("--抽象工厂模式测试开始--");
+        chef.processMerchs(chef.getDishes());
+        System.out.println("--抽象工厂模式测试结束--");
+    }
+
+    /**
+     *对工厂模式进行测试
+     *工厂类通过用户输入生产不同的菜名类，并返回菜名列表
+     */
+    public static void factoryTest(){
+        List<String> names= null;
+
+        //点不同的商品
+        List<String> orders= Arrays.asList("水煮鱼","炒青菜","麻婆豆腐套餐");
+        //点餐
+
+        for(String s:orders){
+            System.out.print("现在点");
+            System.out.println(s);
+
+            names=MerchNameFactory.getMerchName(s);
+
+            //如果点的菜不存在，就会获取到空指针，如果存在，会获取到单品名称的List
+            if(names==null){
+                System.out.println("没有");
+                System.out.println(s);
+            }else{
+                System.out.println("点的菜包括：");
+                for(String ss:names){
+                    System.out.println(ss);
+                }
+            }
+        }
+    }
+
+    /**
+     * 解释器模式的测试
+     * @throws CloneNotSupportedException
+     */
+    public static void interpreterTest() throws CloneNotSupportedException {
+        Waiter waiter = Waiter.getInstance();
+        Chef chef = Chef.getInstance();
+        Order order = new Order();
+        order.setDiscount(0.8);
+        order.adddish("水煮鱼");
+        order.adddish("鸡蛋汤");
+        order.adddish("馒头");
+        waiter.register(order);
+        waiter.register(chef);
+        waiter.serve(order);
+        System.out.println("--测试解释者模式--");
+        waiter.getDishes().get(0).accept(waiter);
+        order.accept(waiter);
+        System.out.println("--结束解释者模式--");
+    }
+
+    /**
+     * 观察者、迭代器、状态模式的测试
+     */
     public static void observerTest()
     {
         Cabinet.getInstance().put(IngredientType.EGG,1);
@@ -495,49 +605,5 @@ public class Main {
         }
     }
 
-    public  static  void  responsibilityChainTest() throws CloneNotSupportedException {
-        Chef chef=Chef.getInstance();
-        Waiter waiter = Waiter.getInstance();
-        waiter.register(chef);
-        Order order = new Order();
-        order.setDiscount(0.8);
-        order.adddish("水煮鱼");
-        order.adddish("鸡蛋汤");
-        order.adddish("馒头");
-        waiter.register(order);
-        waiter.serve(order);//把dishes传进Chef的成员变量
-        System.out.println("----访问订单----");
-        order.accept(waiter);
-        System.out.println("--责任链模式测试开始--");
-        chef.processMerchs(chef.getDishes());
-        System.out.println("--责任链模式测试结束--");
-    }
-
-    public static  void  singletonTest(){
-        System.out.println("--单例模式测试开始--");
-        Chef chef=Chef.getInstance();
-        System.out.println("--单例模式测试开始--");
-
-    }
-
-    public static void abstractFactory() throws CloneNotSupportedException {
-        Chef chef=Chef.getInstance();
-        Waiter waiter = Waiter.getInstance();
-        waiter.register(chef);
-        Order order = new Order();
-        order.setDiscount(0.8);
-        order.adddish("水煮鱼");
-        order.adddish("鸡蛋汤");
-        order.adddish("馒头");
-        order.adddish("炒青菜");
-        order.adddish("麻婆豆腐");
-        waiter.register(order);
-        waiter.serve(order);//把dishes传进Chef的成员变量
-        System.out.println("----访问订单----");
-        order.accept(waiter);
-        System.out.println("--抽象工厂模式测试开始--");
-        chef.processMerchs(chef.getDishes());
-        System.out.println("--抽象工厂模式测试结束--");
-    }
 }
 ////////////////////设计模式测试////////////////////
