@@ -48,6 +48,9 @@ public class Main {
         nullObjectTest();
         compositeTest();
         mediatorAndProxyTest();//对中介者和代理模式测试
+        singletonTest();
+        responsibilityChainTest();
+        abstractFactory();
 
 
 
@@ -462,5 +465,49 @@ public class Main {
         }
     }
 
+    public  static  void  responsibilityChainTest() throws CloneNotSupportedException {
+        Chef chef=Chef.getInstance();
+        Waiter waiter = Waiter.getInstance();
+        waiter.register(chef);
+        Order order = new Order();
+        order.setDiscount(0.8);
+        order.adddish("水煮鱼");
+        order.adddish("鸡蛋汤");
+        order.adddish("馒头");
+        waiter.register(order);
+        waiter.serve(order);//把dishes传进Chef的成员变量
+        System.out.println("----访问订单----");
+        order.accept(waiter);
+        System.out.println("--责任链模式测试开始--");
+        chef.processMerchs(chef.getDishes());
+        System.out.println("--责任链模式测试结束--");
+    }
+
+    public static  void  singletonTest(){
+        System.out.println("--单例模式测试开始--");
+        Chef chef=Chef.getInstance();
+        System.out.println("--单例模式测试开始--");
+
+    }
+
+    public static void abstractFactory() throws CloneNotSupportedException {
+        Chef chef=Chef.getInstance();
+        Waiter waiter = Waiter.getInstance();
+        waiter.register(chef);
+        Order order = new Order();
+        order.setDiscount(0.8);
+        order.adddish("水煮鱼");
+        order.adddish("鸡蛋汤");
+        order.adddish("馒头");
+        order.adddish("炒青菜");
+        order.adddish("麻婆豆腐");
+        waiter.register(order);
+        waiter.serve(order);//把dishes传进Chef的成员变量
+        System.out.println("----访问订单----");
+        order.accept(waiter);
+        System.out.println("--抽象工厂模式测试开始--");
+        chef.processMerchs(chef.getDishes());
+        System.out.println("--抽象工厂模式测试结束--");
+    }
 }
 ////////////////////设计模式测试////////////////////
