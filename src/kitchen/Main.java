@@ -78,9 +78,11 @@ public class Main {
         if(isY.equals("y")|| isY.equals("Y") || isY.equals("是") || isY.equals("shi")){
             o = (Order)o2.clone();
             o.adjustclone();
+            System.out.println("您是尊贵的vip，享受88折优惠");
         }
         else{
             o = (Order)o1.clone();
+            o.adjustclone();
         }
         System.out.println("请问一共有几位客人？");
         int number = stdIn.nextInt();
@@ -99,24 +101,33 @@ public class Main {
                 System.out.println("请输入要删除的菜品名字或编号：");
                 String ddish = stdIn.next();
                 o.canceldish(ddish);
+                System.out.println("您的菜单：");
+                o.showmenu();
             }
             else if(dishname.equals("-2") || dishname.equals("回退") || dishname.equals("回退上一步")){
                 o = Memento.getInstance().getBackup(o);
+                System.out.println("您的菜单：");
+                o.showmenu();
             }
             else {
                 o.adddish(dishname);
+                System.out.println("您的菜单：");
+                o.showmenu();
             }
         }
         System.out.println("点餐完成！");
-        Waiter waiter = Waiter.getInstance();
+        System.out.println("您的菜单：");
+        o.showmenu();
         Chef chef = Chef.getInstance();
+        Waiter waiter = Waiter.getInstance();
         o.setWaiter(waiter);
         //找到服务员为订单和厨师服务
         waiter.register(chef);
         waiter.register(o);
         //订单填写完成，交给服务员，服务员将其中的信息交给厨师
         o.giveorder();
-
+        o.accept(waiter);
+        chef.processMerchs(chef.getDishes());
     }
 
     ////////////////////模块测试////////////////////

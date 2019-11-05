@@ -78,13 +78,13 @@ public class Waiter implements Visitor,WaiterInterface{
         mChef = chef;
         realWaiter.setmChef(chef);
         chef.setWaiter(this);
-        System.out.println("中介者模式：厨师已登记到服务员处");
+        System.out.println("厨师已登记到服务员处");
     }
     public void register(Order order){
         mOrder = order;
         realWaiter.setmOrder(order);
         order.setWaiter(this);
-        System.out.println("中介者模式：订单已获得服务员受理");
+        System.out.println("订单已获得服务员受理");
     }
 
     /**
@@ -93,13 +93,11 @@ public class Waiter implements Visitor,WaiterInterface{
     */
     @Override
     public void serve(Chef chef){
-        System.out.println("中介者开始为厨师服务");
-        System.out.println("代理模式 服务厨师开始");
-
+        System.out.println("--中介者、代理模式--");
+        System.out.println("服务员开始为厨师服务");
         realWaiter.serve(chef);
-
-        System.out.println("代理模式 服务厨师结束");
-        System.out.println("中介者结束为厨师服务");
+        System.out.println("服务员为厨师服务结束");
+        System.out.println("--中介者、代理模式--");
     }
 
     /**
@@ -109,13 +107,9 @@ public class Waiter implements Visitor,WaiterInterface{
     */
     @Override
     public void serve(Order order){
-        System.out.println("中介者开始为订单服务");
-        System.out.println("代理模式 服务订单开始");
-
+        System.out.println("--中介者、订单模式--\n");
         realWaiter.serve(order);
 
-        System.out.println("代理模式 服务订单结束");
-        System.out.println("中介者结束为订单服务");
 
         lists = realWaiter.getLists();
         dishes = realWaiter.getDishes();
@@ -140,7 +134,7 @@ public class Waiter implements Visitor,WaiterInterface{
     */
     @Override
     public void visit(Dish dish) {
-        System.out.println("visit " + dish.getName() + ":" + dish.getPrice() + "元");
+        System.out.println(dish.getName() + ":" + dish.getPrice() + "元");
     }
 
     /**
@@ -149,7 +143,7 @@ public class Waiter implements Visitor,WaiterInterface{
     */
     @Override
     public void visit(Order order) {
-        System.out.println("visit order");
+        System.out.println("访问订单：");
         for (Dish dish: dishes) {
             this.visit(dish);
             mOrder.addBill(dish.getPrice());

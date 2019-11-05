@@ -148,7 +148,7 @@ public class Chef implements ChefImp{
         if(dish.getMaterial().equals("豆腐")){
            ingredient=new Tofu();
         }
-        if(dish.getMaterial().equals("蔬菜")){
+        if(dish.getMaterial().equals("青菜")){
            ingredient=new Vegetables();
         }
         return ingredient;
