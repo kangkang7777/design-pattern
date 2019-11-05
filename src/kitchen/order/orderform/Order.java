@@ -129,6 +129,7 @@ public class Order implements Cloneable{
      * 计算订单最终实付金额。
      */
     public void pay(){
+        System.out.println("--使用桥接模式--");
         System.out.println("顾客共消费：" + (this.bill * this.discount) + "元。");
     }
 
@@ -180,13 +181,21 @@ public class Order implements Cloneable{
      * @param name
      */
     public void canceldish(String name) throws CloneNotSupportedException {
-        if(dishlist.contains(name)) {
+        List<String> merchs = MerchNameFactory.getMerchName(name);
+        if(merchs != null) {
             Memento.getInstance().setBackup(this);
-            dishlist.remove(name);
-            System.out.println("菜品" + name + "已删除。");
+            for (String i : merchs) {
+                if(dishlist.contains(i)) {
+                    dishlist.remove(i);
+                    System.out.println("菜品" + i + "已删除。");
+                }
+                else{
+                    System.out.println("菜品" + i + "不存在于订单中。");
+                }
+            }
         }
         else
-            System.out.println("此菜品不存在于订单中。");
+            System.out.println("此菜品不存在。");
     }
 
     /**

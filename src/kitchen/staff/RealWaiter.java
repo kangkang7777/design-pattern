@@ -35,19 +35,19 @@ public class RealWaiter implements WaiterInterface {
         return instance;
     }
 
-    //测试使用serve
-    public void serve(){
-        lists = mWaiter.getLists();
-        if(lists != null){
-            Adapter adapter = new Adapter();
-            dishes = adapter.getDishes();
-            System.out.println("订单开始传递给厨师");
-            informChef();
-        }
-        else {
-            System.out.println("菜单错误");
-        }
-    }
+
+//    public void serve(){
+//        lists = mWaiter.getLists();
+//        if(lists != null){
+//            Adapter adapter = new Adapter();
+//            dishes = adapter.getDishes();
+//            System.out.println("订单开始传递给厨师");
+//            informChef();
+//        }
+//        else {
+//            System.out.println("菜单错误");
+//        }
+//    }
 
     //为厨师服务的方法
     //厨师做好菜后使用
@@ -68,6 +68,7 @@ public class RealWaiter implements WaiterInterface {
 //        ArrayList<String>lists = mWaiter.getLists();
 
         if(lists != null) {
+            mWaiter.setLists(lists);
             Adapter adapter = new Adapter();
             dishes = adapter.getDishes();
             //此步可将订单进一步处理再传递给厨师，测试visitor的时候注释掉

@@ -32,14 +32,39 @@ import kitchen.staff.Waiter;
  * 单例，责任链
  */
 public class Chef implements ChefImp{
-    
+
+    private CookerFactory cookerFactory;
+
+    public CookerFactory getCookerFactory() {
+        return cookerFactory;
+    }
+
+    public void setCookerFactory(CookerFactory cookerFactory) {
+        this.cookerFactory = cookerFactory;
+    }
+
+    /**
+     * Waiter实例
+     */
     private Waiter mWaiter;
+
+    /**
+     * 存储待处理的商品列表
+     */
     private ArrayList<Dish>dishes=new ArrayList<>();
 
+    /**
+     * 设置商品列表
+     * @param dishes 商品的列表
+     */
     public void setDishes(ArrayList<Dish> dishes) {
         this.dishes = dishes;
     }
 
+    /**
+     * 获得商品列表
+     * @return dishes 商品的列表
+     */
     public ArrayList<Dish> getDishes() {
         return dishes;
     }
@@ -49,9 +74,9 @@ public class Chef implements ChefImp{
     }
 
     /**
-     * Default constructor
+     * 厨师的私有构造函数
      */
-    public Chef() {
+    private Chef() {
         if (instance == null) {
             instance = this;
         } else {
@@ -60,12 +85,13 @@ public class Chef implements ChefImp{
     }
 
     /**
-     * 
+     * 厨师的私有静态变量
      */
     private static Chef instance;
 
     /**
-     * @return instance
+     * 获得厨师的单例
+     * @return instance 厨师单例
      */
     public static synchronized Chef getInstance() {
         if (instance == null) {
@@ -76,10 +102,9 @@ public class Chef implements ChefImp{
 
 
     /**
-    * 根据商品参数material，转换成IngredientType
-    * 根据商品类型进行拓展
-    * @param dish
-    * @return IngredientType
+    * 获得要处理的商品原料
+    * @param dish 商品
+    * @return IngredientType 原料类型
     */
     private IngredientType transferToIngredientType(Dish dish){
         IngredientType type=IngredientType.EGG;
@@ -96,7 +121,7 @@ public class Chef implements ChefImp{
         if(dish.getMaterial().equals("豆腐")){
             type=IngredientType.TOFU;
         }
-        if(dish.getMaterial().equals("蔬菜")){
+        if(dish.getMaterial().equals("青菜")){
             type=IngredientType.VEGETABLES;
         }
         return type;
@@ -105,8 +130,8 @@ public class Chef implements ChefImp{
     /**
     * 根据商品参数material，转换成Ingredient
     * 根据商品类型进行拓展
-    * @param dish
-    * @return Ingredient
+    * @param dish 商品
+    * @return Ingredient 原料
     */
     private Ingredient transferToIngredient(Dish dish){
         Ingredient ingredient=new Egg();
@@ -142,24 +167,21 @@ public class Chef implements ChefImp{
     private int hasIngredient(IngredientType type){
         if(Cabinet.getInstance().seek(type)>0)
         {
-
             return 1;
         }
         else if(Fridge.getInstance().seek(type)>0)
         {
-
             return 2;
         }
         else{
-            System.out.println(""+type.toString()+"不存在");
             return 0;
         }     
     }
 
     /**
     * 根据hasIngredient()返回数据生成容器单例
-    * @param dish
-    * @return Container
+    * @param dish 商品
+    * @return Container 容器
     */
     public Container selectedContainer(Dish dish){
     Chef chef=Chef.getInstance();
@@ -168,88 +190,68 @@ public class Chef implements ChefImp{
     Container fridge=Fridge.getInstance();
     if(chef.hasIngredient(type)==1){
 
-        System.out.println(""+type.toString()+"在橱柜中");
+        System.out.println("【"+type.toString()+"】"+"在橱柜中");
         return cabinet;
     }
     else if(chef.hasIngredient(type)==2){
 
-        System.out.println(""+type.toString()+"在冰箱中");
+        System.out.println("【"+type.toString()+"】"+"在冰箱中");
         return fridge;
     }
     else {
+        System.out.println("【"+type.toString()+"】"+"不存在");
         if(type==IngredientType.EGG||type==IngredientType.FLOUR||
                 type==IngredientType.VEGETABLES){
             cabinet.put(type,100);
-            System.out.println(type+"重新进货了"+"，存放在橱柜中");
+            System.out.println("【"+type.toString()+"】"+"重新进货了"+"，存放在【橱柜】中");
             return cabinet;
         }
         else {
             fridge.put(type,100);
-            System.out.println(type+"重新进货了"+"，存放在冰箱中");
+            System.out.println("【"+type.toString()+"】"+"重新进货了"+"，存放在【冰箱】中");
             return fridge;
         }
     }
    }
-    
-   
 
-    /**
-     * 根据商品选择使用的厨具
-     * @param dish
-     * @return Cooker
-     */
-    public Cooker buildCooker(Dish dish){
-    if(dish.getCooker().equals("炒锅")){
-        Cooker wok=new Wok();
-        return wok;   
-    }
-    
-    if(dish.getCooker().equals("电饭煲")){
-        Cooker ricCooker=new RiceCooker();
-        return ricCooker;
-    }
-    else {
-        Cooker steamer=new Steamer();
-        return steamer;
-    }
-
-   }
-    
-    
 
     /**
      * 对外是一个处理商品列表的接口，内部进行处理
      * 获取原材料，使用工具，进行烹饪
-     * 此处可以作为一个命令模式的command,进行拓展
      * @param dishes 商品列表
      */
     @Override
     public void processMerchs(ArrayList<Dish>dishes){
+
         System.out.println("厨师接到了新单");
         Chef chef=Chef.getInstance(); 
         //责任链排序
         HashMap<Integer,Dish> mDishes=new HashMap<>();
-
+        int priorityCount=0;
         for(Dish dish:dishes){
         IngredientType type=chef.transferToIngredientType(dish);
         Ingredient ingredient=chef.transferToIngredient(dish);
         Container container=chef.selectedContainer(dish);
-        
+        priorityCount++;
         //取原料及其数量并进行消耗
         int count=dish.getCount();
         boolean isTrue= container.get(type, count);
 
-        Cooker newCooker= chef.buildCooker(dish); 
+        CookerFactory cookerFactory=new CookerFactory();
+        chef.setCookerFactory(cookerFactory);
+        Cooker newCooker= chef.getCookerFactory().buildCooker(dish);
         if(isTrue){
-            System.out.println("厨师成功从"+container.getName()+"获得"+type) ;   
-            mDishes.put(newCooker.getPriority(),dish);
+            System.out.println("厨师成功从"+"【"+container.getName()+"】"+"获得"
+                                +"【"+type.toString()+"】") ;
+            mDishes.put(newCooker.getPriority()+priorityCount,dish);
         }      
         else{
-            System.out.println("厨师获得"+type+"失败");
+            System.out.println("厨师获得"+"【"+type.toString()+"】"+"失败");
         }
        
         }
 
+        priorityCount=1;
         Iterator<Map.Entry<Integer, Dish>> it = mDishes.entrySet().iterator();
         while(it.hasNext()){
             Map.Entry<Integer,Dish> mEntry = it.next();
@@ -257,10 +259,12 @@ public class Chef implements ChefImp{
             int key = mEntry.getKey();
             Dish mDish=mEntry.getValue();
             Ingredient mIngredient=chef.transferToIngredient(mDish);
-            Cooker mNewCooker= chef.buildCooker(mDish);
+            Cooker mNewCooker= chef.getCookerFactory().buildCooker(mDish);
+            System.out.println("【"+priorityCount+"】：  ");
             mNewCooker.cook(mIngredient);
+            priorityCount++;
         }
-      //mWaiter.serve(this);
+            //mWaiter.serve(this);
     }
     
 }

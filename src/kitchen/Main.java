@@ -15,6 +15,7 @@ import kitchen.staff.Waiter;
 import kitchen.staff.chef.Chef;
 import kitchen.time.Time;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -74,24 +75,32 @@ public class Main {
 //        o.giveorder();
 
 
-//    public static void main(String[] args)
-//    {
-//
-//        Chef chef=Chef.getInstance();//获取厨师单例
-//        Ingredient ingredient;
-//        Container container;
-//        Fridge fridge=Fridge.getInstance();
-//        fridge.put(IngredientType.FISH,100);
-//        Cabinet cabinet=Cabinet.getInstance();
-//        cabinet.put(IngredientType.FLOUR,100);
-//        ArrayList<String> strings=new ArrayList<>();
-//        strings.add("BoiledFish");
-//        strings.add("SteamedBread");
-//        Adapter adapter=new Adapter();
-//        ArrayList<Dish>dishes=adapter.getDishes(strings);
-//        chef.processMerchs(dishes);
-//
-//    }
+    /**
+     * 对chef做菜功能进行测试：
+     * 包含单例，命令，抽象工厂模式
+     * @param args
+     * @throws CloneNotSupportedException
+     */
+    public static void main(String[] args) throws CloneNotSupportedException {
+
+        Chef chef=Chef.getInstance();
+        Waiter waiter = Waiter.getInstance();
+        waiter.register(chef);
+        Order order = new Order();
+        order.setDiscount(0.8);
+        order.adddish("水煮鱼");
+        order.adddish("鸡蛋汤");
+        order.adddish("馒头");
+        waiter.register(order);
+        waiter.serve(order);
+        System.out.println("--测试访问者模式--");
+        System.out.println("----访问菜品----");
+        waiter.getDishes().get(0).accept(waiter);
+        System.out.println("----访问订单----");
+        order.accept(waiter);
+        chef.processMerchs(waiter.getDishes());
+
+    }
 
 
 
@@ -113,6 +122,7 @@ public class Main {
         Time.getInstance().update(15);//时间流失
     }
  */
+<<<<<<< HEAD
 //这里是waiter的测试
     public static void main(String[] args){
         Chef chef = Chef.getInstance();
@@ -185,4 +195,93 @@ public class Main {
         }
     }
 
+=======
+//这里是waiter和realWaiter的测试
+//测试中介者模式与代理模式
+//public static void main(String[] args){
+//    testMediatorAndProxy();
+//}
+//    //这里是adapter与visitor的测试
+//    //测试时请将waiter中的77,78注释，并将最后一个函数解注释
+//    /*public static void main(String[] args) throws CloneNotSupportedException {
+//        Waiter waiter = Waiter.getInstance();
+//        Order order = new Order();
+//        order.setDiscount(0.8);
+//        order.adddish("水煮鱼");
+//        order.adddish("鸡蛋汤");
+//        order.adddish("馒头");
+//        waiter.register(order);
+//        waiter.serve(order);
+//        System.out.println("--测试访问者模式--");
+//        System.out.println("----访问菜品----");
+//        waiter.getDishes().get(0).accept(waiter);
+//        System.out.println("----访问订单----");
+//        order.accept(waiter);
+//    }*/
+//    public static void testPrototype() throws CloneNotSupportedException {
+//        Order o = new Order();
+//        System.out.println("o订单的生成使用了Order类的构造器");
+//        o.adddish("麻婆豆腐");
+//        System.out.println("为订单o中添加菜”麻婆豆腐“。");
+//        Order o_copy  = (Order)o.clone();
+//        System.out.println("o_copy订单的生成使用了o的clone()方法。");
+//        System.out.println("测试o和o_copy的菜单是否相同? " + (o.givemenu().equals(o_copy.givemenu())) );
+//        System.out.println("测试o和o_copy是否相同? " + (o.equals(o_copy)));
+//    }
+//
+//    public static void testMemento() throws CloneNotSupportedException {
+//        Order o = new Order();
+//        o.adddish("麻婆豆腐");
+//        o.adddish("鸡蛋汤");
+//        System.out.println("新建订单o，添加菜品麻婆豆腐，鸡蛋汤。");
+//        o.canceldish("鸡蛋汤");
+//        System.out.println("删除菜品鸡蛋汤，此时订单菜单有：");
+//        ArrayList<String> menu = o.givemenu();
+//        for (String i:menu
+//             ) {
+//            System.out.println(i);
+//        }
+//        o = Memento.getInstance().getBackup(o);
+//        System.out.println("用Memento模式回到o的上一步历史订单，此时订单菜单有：");
+//        menu = o.givemenu();
+//        for (String i:menu
+//        ) {
+//            System.out.println(i);
+//        }
+//    }
+//
+//    public static void testFlyweight() throws CloneNotSupportedException {
+//        Order o1 = new Order();
+//        Order o2 = new Order();
+//        o1.adddish("鸡蛋汤");
+//        o2.adddish("鸡蛋汤");
+//        System.out.println("创建o1,o2两个订单，都添加菜品”鸡蛋汤”。");
+//        System.out.println("测试o1的历史是否等于o2? " + (Memento.getInstance().getBackup(o1).getOid() == Memento.getInstance().getBackup(o2).getOid()));
+//        Order o3 = (Order)o1.clone();
+//        o1.canceldish("鸡蛋汤");
+//        System.out.println("对o1进行操作后，测试此时o1的历史是否等于原o1的历史? " + (Memento.getInstance().getBackup(o1).getOid() == o3.getOid()));
+//    }
+//
+//    public static void testMediatorAndProxy(){
+//        Chef chef = Chef.getInstance();
+//        Waiter waiter = Waiter.getInstance();
+//        Order order = new Order();
+//        //中介者注册order与chef
+//        waiter.register(order);
+//        waiter.register(chef);
+//
+//        order.setDiscount(0.6);
+//        try {
+//            order.adddish("水煮鱼");
+//            order.adddish("鸡蛋汤");
+//            order.adddish("麻婆豆腐");
+//        } catch (CloneNotSupportedException e) {
+//            e.printStackTrace();
+//        }
+//        //订单填写完毕，将订单转交给服务员
+//        order.giveorder();
+//        //结账
+//        order.accept(waiter);
+//    }
+>>>>>>> 4bfc118dd1c5bd6aa39043876b5e1b22a4894a15
 }
