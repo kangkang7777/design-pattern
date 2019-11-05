@@ -18,7 +18,6 @@ import kitchen.time.Time;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.List;
 
 /**
  *部分模块的测试请写在此Main中，标注信息并注释
@@ -38,6 +37,7 @@ public class Main {
         //testAVBFB();//对adapter、visitor、builder、facade、bridge的测试
         //containerTest();//对container包的测试
         //ingredientTest();//对ingredient包对测试
+        //waiterTest();//对waiter的测试
 
         ////////////////////模块测试////////////////////
 
@@ -47,6 +47,7 @@ public class Main {
         decoratorTest();
         nullObjectTest();
         compositeTest();
+        mediatorAndProxyTest();//对中介者和代理模式测试
 
 
 
@@ -216,6 +217,26 @@ public class Main {
 
     }
 
+    /**
+     * 对waiter为订单服务的能力测试
+     * 包含设计模式：单例，中介者，代理
+     */
+    public static void waiterTest() throws CloneNotSupportedException {
+        Waiter waiter = Waiter.getInstance();
+        Chef chef = Chef.getInstance();
+        Order order = new Order();
+
+        //找到服务员为订单和厨师服务
+        waiter.register(chef);
+        waiter.register(order);
+
+        order.adddish("水煮鱼");
+        order.adddish("鸡蛋汤");
+
+        //订单填写完成，交给服务员，服务员将其中的信息交给厨师
+        order.giveorder();
+    }
+
     ////////////////////模块测试////////////////////
 
     ////////////////////设计模式测试////////////////////
@@ -344,7 +365,7 @@ public class Main {
     /**
      *中介、代理模式测试
      */
-    public static void testMediatorAndProxy(){
+    public static void mediatorAndProxyTest() throws CloneNotSupportedException {
         Chef chef = Chef.getInstance();
         Waiter waiter = Waiter.getInstance();
         Order order = new Order();
@@ -353,17 +374,13 @@ public class Main {
         waiter.register(chef);
 
         order.setDiscount(0.6);
-        try {
-            order.adddish("水煮鱼");
-            order.adddish("鸡蛋汤");
-            order.adddish("麻婆豆腐");
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
-        //订单填写完毕，将订单转交给服务员
+        order.adddish("水煮鱼");
+        order.adddish("鸡蛋汤");
+        order.adddish("麻婆豆腐");
+        //订单填写完毕，将订单转交给服务员,服务员将订单信息处理后交给厨师
         order.giveorder();
-        //结账
-        order.accept(waiter);
+        //拿到服务员给的菜名后，厨师开始做菜，做完菜后通知服务员取菜
+        chef.processMerchs(chef.getDishes());
     }
 
     /**
