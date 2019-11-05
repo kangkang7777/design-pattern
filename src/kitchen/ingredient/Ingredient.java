@@ -54,7 +54,10 @@ public abstract class Ingredient implements TimeObserver {
     public void setStale() {
         state = new Stale();
     }
- 
+
+    /**
+     * 获取状态字符串
+     */
     public String getStateName(){
         return state.toString();
     }
