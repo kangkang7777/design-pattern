@@ -380,7 +380,6 @@ public class Main {
         order.adddish("馒头");
         waiter.register(order);
         waiter.serve(order);//把dishes传进Chef的成员变量
-        System.out.println("----访问菜品----");
         System.out.println("----访问订单----");
         order.accept(waiter);
         System.out.println("--命令模式测试开始--");
