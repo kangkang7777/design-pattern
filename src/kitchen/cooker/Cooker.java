@@ -3,10 +3,11 @@ package kitchen.cooker;
 import java.util.ArrayList;
 import kitchen.ingredient.IngredientType;
 import kitchen.ingredient.*;
-//todo import ingredient package here
 
 /**
- * 
+ * 厨具抽象基类
+ * 设计模式：模版模式、责任链模式
+ * @author Vector Xie、吕海军
  */
 public abstract class Cooker {
 
@@ -29,35 +30,17 @@ public abstract class Cooker {
         return this.priority;
     }
 
-
-    /**
-     * Default constructor
-     */
     public Cooker() {
     }
 
-    /**
-     * 
-     */
     protected ArrayList<IngredientType> availableTypes;
 
-    /**
-     * 
-     */
     protected String name;
 
-    /**
-     * @param type 
-     * @return
-     */
     private boolean isIngredientTypeAvailable(IngredientType type) {
         return availableTypes.contains(type);
     }
 
-    /**
-     * @param typeList 
-     * @return
-     */
     private boolean isIngredientTypeAvailable(ArrayList<IngredientType> typeList) {
         for (IngredientType itype:typeList) {
             if(!availableTypes.contains(itype))return false;
@@ -65,10 +48,6 @@ public abstract class Cooker {
         return true;
     }
 
-    /**
-     * @param ingredient 
-     * @return
-     */
     public final void cook(Ingredient ingredient) {
         if(!isIngredientTypeAvailable(ingredient.getIngredientType())){
             System.out.println("不能用该厨具烹饪该食材！");
@@ -78,10 +57,6 @@ public abstract class Cooker {
         finishCooking(ingredient);
     }
 
-    /**
-     * @param ingredientList 
-     * @return
-     */
     public final void cook(ArrayList<Ingredient> ingredientList) {
         for (Ingredient ingredient:ingredientList) {
             if(!isIngredientTypeAvailable(ingredient.getIngredientType())){
@@ -93,34 +68,20 @@ public abstract class Cooker {
         finishCooking(ingredientList);
     }
 
-    /**
-     *
-     */
     protected abstract void startCooking(Ingredient ingredient);
 
-    /**
-     *
-     */
     protected abstract void finishCooking(Ingredient ingredient);
 
-    /**
-     *
-     */
     protected abstract void startCooking(ArrayList<Ingredient> ingredientList);
 
-    /**
-     *
-     */
     protected abstract void finishCooking(ArrayList<Ingredient> ingredientList);
 
-    /**
-     * @return
-     */
-    public abstract String getName();
+    public String getName(){return name;}
 
-    /**
-     * @return
-     */
-    public abstract void getAvailableType();
+    public void getAvailableType() {
+        for (IngredientType type : availableTypes) {
+            System.out.println("可烹饪食材：【"+type.toString()+"】");
+        }
+    }
 
 }
