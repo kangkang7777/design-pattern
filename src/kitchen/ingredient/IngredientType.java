@@ -1,7 +1,9 @@
 package kitchen.ingredient;
 
 /**
- * 
+ * 原料种类枚举。
+ * 已有的枚举类型实例可以通过toString返回名称。
+ * @author 谢康
  */
 public enum IngredientType 
 {

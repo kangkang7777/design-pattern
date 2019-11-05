@@ -1,12 +1,30 @@
 package kitchen.ingredient;
 
+/**
+ * 处理方法类。
+ * 设计模式：装饰器模式。
+ * @author 谢康
+ */
 public class FancyCut implements CutInterface  {
-
+    
+    /**
+     * 实例
+     */
     private Ingredient ingredient;
+
+    /**
+     * Default constructor
+     * @param obj 传入的实例
+     */
     public FancyCut(Ingredient obj)
     {
         ingredient = obj;
     }
+
+
+     /**
+     * 显示对应的处理方法
+     */
     @Override
     public void displayCut() {
         if(ingredient.getIngredientType() == IngredientType.EGG)

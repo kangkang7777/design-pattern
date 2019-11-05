@@ -2,7 +2,9 @@ package kitchen.ingredient.state;
 import kitchen.ingredient.*;
 
 /**
- * 
+ * ????
+ * ???????????
+ * @author ??
  */
 public class Fresh implements State {
 
@@ -13,22 +15,26 @@ public class Fresh implements State {
     }
 
     /**
-     * @return
+     * @return ??
      */
     public String toString() {
         return "新鲜";
     }
 
     /**
+     * ????
+     * 
      * @param ingredient 
-     * @return
+     * @return false
      */
     @Override
     public boolean isCooked(Ingredient ingredient){return false;}
 
     /**
+     * ?????
+     * 
      * @param ingredient 
-     * @return
+     * @return false
      */
     @Override
     public boolean isStale(Ingredient ingredient){return false;}

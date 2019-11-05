@@ -5,7 +5,10 @@ import kitchen.ingredient.IngredientType;
 import java.util.*;
 
 /**
- * 
+ * ????
+ * ???????????????
+ * ?????????
+ * @author ??
  */
 public class Cabinet extends Container {
 
@@ -25,12 +28,14 @@ public class Cabinet extends Container {
     }
 
     /**
-     * 
+     * ????
      */
     private static Cabinet instance;
 
     /**
-     * @return instance
+     * ????
+     * 
+     * @return ??
      */
     public static synchronized Cabinet getInstance() {
         if (instance == null) {
@@ -40,7 +45,7 @@ public class Cabinet extends Container {
     }
 
     /**
-     * @return
+     * @return ??
      */
     @Override
     public String getName()

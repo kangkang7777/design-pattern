@@ -1,7 +1,8 @@
 package kitchen.ingredient;
 
 /**
- * 
+ * 子类豆腐
+ * @author 谢康
  */
 public class Tofu extends Ingredient {
 
@@ -13,12 +14,11 @@ public class Tofu extends Ingredient {
 
     /**
      * 腐烂速度
-     * 
      */
     private double staleSpeed = 0.5;
 
     /**
-     * @return
+     * @return 名称
      */
     @Override
     public String getName(){
@@ -26,7 +26,7 @@ public class Tofu extends Ingredient {
     }
 
     /**
-     * 
+     * @return 种类
      */
     @Override
     public IngredientType getIngredientType(){
@@ -36,7 +36,6 @@ public class Tofu extends Ingredient {
 
     /**
      * 时间更新，进行腐烂
-     * 
      */
     @Override
     public void update()

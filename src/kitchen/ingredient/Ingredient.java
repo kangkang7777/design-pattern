@@ -24,13 +24,11 @@ public abstract class Ingredient implements TimeObserver {
 
     /**
      * 新鲜度
-     * 
      */
     protected float fresh;
 
     /**
      * 食材状态
-     * 
      */
     protected State state;
 
@@ -45,7 +43,6 @@ public abstract class Ingredient implements TimeObserver {
 
     /**
      * 设定已用
-     * 
      */
     public void setCooked() {
         state = new Cooked();
@@ -53,24 +50,23 @@ public abstract class Ingredient implements TimeObserver {
 
     /**
      * 设定腐烂
-     * 
      */
     public void setStale() {
         state = new Stale();
     }
 
     /**
-     * @return
+     * @return 名称
      */
     public abstract String getName();
 
     /**
-     * 
+     * 返回原料种类
      */
     public abstract IngredientType getIngredientType();
 
     /**
-     * 
+     * 用于观察者模式的腐败更新
      */
     public abstract void update();
 

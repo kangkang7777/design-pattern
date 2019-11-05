@@ -15,12 +15,12 @@ import kitchen.ingredient.*;
 public abstract class Container {
 
     /**
-     * 
+     * 原料列表，容器中的原料都存储在此
      */
     protected ArrayList<Ingredient> ingredients = new ArrayList<>();
 
     /**
-     *
+     *储存此容器能够存放的原料
      */
     protected ArrayList<IngredientType> availableTypes;
 
@@ -122,18 +122,22 @@ public abstract class Container {
     }
 
     /**
-     * @param type
-     * @return
+     * 判断此原料能否放入此容器
+     * 
+     * @param type 
+     * @return 
      */
-    private boolean isIngredientTypeAvailable(IngredientType type) {
+    public boolean isIngredientTypeAvailable(IngredientType type) {
         return availableTypes.contains(type);
     }
 
     /**
+     * 判断这些原料能否全部都能放入此容器
+     * 
      * @param typeList
      * @return
      */
-    private boolean isIngredientTypesAvailable(ArrayList<IngredientType> typeList) {
+    public boolean isIngredientTypesAvailable(ArrayList<IngredientType> typeList) {
         for (IngredientType itype:typeList) {
             if(!availableTypes.contains(itype))return false;
         }
@@ -141,12 +145,12 @@ public abstract class Container {
     }
 
     /**
-     * @return
+     * @return 此容器的迭代器
      */
     public ContainerIterator Iterator() { return new ContainerIterator(this.ingredients); }
 
     /**
-     * @return
+     * @return 名称
      */
     public abstract String getName();
 
