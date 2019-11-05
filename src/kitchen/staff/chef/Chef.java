@@ -237,25 +237,23 @@ public class Chef implements ChefImp{
         int count=dish.getCount();
         boolean isTrue= container.get(type, count);
 
-        CookerFactory cookerFactory=new CookerFactory();
+        CookerFactory cookerFactory=CookerFactory.getInstance();
         chef.setCookerFactory(cookerFactory);
         Cooker newCooker= chef.getCookerFactory().buildCooker(dish);
         if(isTrue){
             System.out.println("厨师成功从"+"【"+container.getName()+"】"+"获得"
                                 +"【"+type.toString()+"】") ;
             mDishes.put(newCooker.getPriority()+priorityCount,dish);
-        }      
+        }
         else{
             System.out.println("厨师获得"+"【"+type.toString()+"】"+"失败");
         }
-       
         }
 
         priorityCount=1;
         Iterator<Map.Entry<Integer, Dish>> it = mDishes.entrySet().iterator();
         while(it.hasNext()){
             Map.Entry<Integer,Dish> mEntry = it.next();
-            //getKey()和getValue是接口Map.Entry<K,V>中的方法，getKey()返回对应的键，getValue()返回对应的值
             int key = mEntry.getKey();
             Dish mDish=mEntry.getValue();
             Ingredient mIngredient=chef.transferToIngredient(mDish);
