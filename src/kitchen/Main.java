@@ -47,7 +47,7 @@ public class Main {
         decoratorTest();
         nullObjectTest();
         compositeTest();
-        
+
 
 
         ////////////////////设计模式测试////////////////////
@@ -236,8 +236,8 @@ public class Main {
             System.out.print("我们没有");
             System.out.println(order);
         }else{
+            System.out.println("点的菜包括：");
             for(String s:names){
-                System.out.println("点的菜包括：");
                 System.out.println(s);
             }
         }
@@ -259,8 +259,8 @@ public class Main {
             System.out.println("没有");
             System.out.println(order);
         }else{
+            System.out.println("点的菜包括：");
             for(String s:names){
-                System.out.println("点的菜包括：");
                 System.out.println(s);
             }
         }
