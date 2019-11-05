@@ -122,7 +122,6 @@ public class Main {
         Time.getInstance().update(15);//时间流失
     }
  */
-<<<<<<< HEAD
 //这里是waiter的测试
     public static void main(String[] args){
         Chef chef = Chef.getInstance();
@@ -195,7 +194,6 @@ public class Main {
         }
     }
 
-=======
 //这里是waiter和realWaiter的测试
 //测试中介者模式与代理模式
 //public static void main(String[] args){
@@ -283,5 +281,4 @@ public class Main {
 //        //结账
 //        order.accept(waiter);
 //    }
->>>>>>> 4bfc118dd1c5bd6aa39043876b5e1b22a4894a15
 }

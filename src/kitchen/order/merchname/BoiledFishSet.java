@@ -4,6 +4,7 @@ import java.util.List;
 
 /**
  * 水煮鱼套餐，有名称List和MerchName对象List
+ * @author 宋亮
  */
 public class BoiledFishSet implements MerchName {
     /**
@@ -28,6 +29,8 @@ public class BoiledFishSet implements MerchName {
 
     /**
      * 获取MerchName对象的名称List
+     * 
+     * @return 返回商品名的List
      */
     @Override
     public List<String> getMerchName() {

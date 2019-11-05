@@ -5,6 +5,7 @@ import java.util.List;
 
 /**
  * 麻婆豆腐套餐，有名称List和MerchName对象List
+ * @author 宋亮
  */
 public class MaboTofuSet implements MerchName {
     /**
@@ -29,6 +30,8 @@ public class MaboTofuSet implements MerchName {
 
     /**
      * 获取MerchName对象的名称List
+     * 
+     * @return 返回商品名的List
      */
     @Override
     public List<String> getMerchName() {

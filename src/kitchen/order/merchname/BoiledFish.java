@@ -4,6 +4,7 @@ import java.util.List;
 
 /**
  * 单品水煮鱼，只有名称List，没有MerchName对象List
+ * @author 宋亮
  */
 public class BoiledFish implements MerchName{
     /**

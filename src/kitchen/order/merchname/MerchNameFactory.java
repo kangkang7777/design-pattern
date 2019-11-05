@@ -4,6 +4,7 @@ import java.util.List;
 /**
  * MerchName的工厂类，可以根据商品名或编号创建MerchName类，
  * 返回其中的商品名的List
+ * @author 宋亮
  */
 public class MerchNameFactory {
     /**

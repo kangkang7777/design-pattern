@@ -5,6 +5,7 @@ import java.util.List;
 
 /**
  * 单品炒青菜，只有名称List，没有MerchName对象List
+ * @author 宋亮
  */
 public class StirFriedVegetables implements MerchName {
     /**

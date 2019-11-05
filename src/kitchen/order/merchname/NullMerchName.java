@@ -3,6 +3,7 @@ import java.util.List;
 
 /**
  * 空对象，在用户点到不存在的商品时会创建
+ * @author 宋亮
  */
 public class NullMerchName implements MerchName {
     /**
