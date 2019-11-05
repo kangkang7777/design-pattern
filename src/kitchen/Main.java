@@ -14,10 +14,19 @@ import kitchen.order.orderform.Order;
 import kitchen.staff.Waiter;
 import kitchen.staff.chef.Chef;
 
+import java.util.List;
+
 /**
  *部分模块的测试请写在此Main中，标注信息并注释
  */
 public class Main {
+
+    public static void main(String[] args) throws CloneNotSupportedException {
+
+        //chefTest();//对chef包进行测试，包含单例，命令，抽象工厂,责任链，中介者，代理模式
+        //testAVBFB();//对adapter、visitor、builder、facade、bridge的测试
+        testMediatorAndProxy();//对waiter、realwaiter测试，中介者模式和代理模式
+    }
 //    public static void main(String[] args) throws CloneNotSupportedException {
 //        /**
 //         * Order模块测试
@@ -99,11 +108,6 @@ public class Main {
 
     }
 
-    public static void main(String[] args) throws CloneNotSupportedException {
-
-        chefTest();//对chef包进行测试，包含单例，命令，抽象工厂,责任链，中介者，代理模式
-        //testAVBFB();//对adapter、visitor、builder、facade、bridge的测试
-    }
 
 //这里是container与ingredient的测试
 /*
@@ -121,19 +125,7 @@ public class Main {
         Time.getInstance().update(15);//时间流失
     }
  */
-//这里是waiter的测试
-    public static void main(String[] args){
-        Chef chef = Chef.getInstance();
-        Waiter waiter = Waiter.getInstance();
-        waiter.register(chef);
-        ArrayList<String> AL = new ArrayList<>();
 
-        AL.add("水煮鱼");
-        AL.add("鸡蛋汤");
-        waiter.setLists(AL);
-        waiter.serve();
-        waiter.visit(waiter.getmOrder());
-    }
     //这里是adapter与visitor的测试
     //测试时请将waiter中的77,78注释，并将最后一个函数解注释
     /*public static void main(String[] args) throws CloneNotSupportedException {
@@ -193,11 +185,7 @@ public class Main {
         }
     }
 
-//这里是waiter和realWaiter的测试
-//测试中介者模式与代理模式
-//public static void main(String[] args){
-//    testMediatorAndProxy();
-//}
+
 
     /**
      * 这里是adapter、visitor、builder、facade、bridge的测试11-13,19-20
@@ -265,25 +253,29 @@ public class Main {
 //        System.out.println("对o1进行操作后，测试此时o1的历史是否等于原o1的历史? " + (Memento.getInstance().getBackup(o1).getOid() == o3.getOid()));
 //    }
 //
-//    public static void testMediatorAndProxy(){
-//        Chef chef = Chef.getInstance();
-//        Waiter waiter = Waiter.getInstance();
-//        Order order = new Order();
-//        //中介者注册order与chef
-//        waiter.register(order);
-//        waiter.register(chef);
-//
-//        order.setDiscount(0.6);
-//        try {
-//            order.adddish("水煮鱼");
-//            order.adddish("鸡蛋汤");
-//            order.adddish("麻婆豆腐");
-//        } catch (CloneNotSupportedException e) {
-//            e.printStackTrace();
-//        }
-//        //订单填写完毕，将订单转交给服务员
-//        order.giveorder();
-//        //结账
-//        order.accept(waiter);
-//    }
+// 这里是waiter和realWaiter的测试
+//测试中介者模式与代理模式
+    public static void testMediatorAndProxy(){
+        Chef chef = Chef.getInstance();
+        Waiter waiter = Waiter.getInstance();
+        Order order = new Order();
+        //中介者注册order与chef
+        waiter.register(order);
+        waiter.register(chef);
+        //填写订单
+        order.setDiscount(0.6);
+        try {
+            order.adddish("水煮鱼");
+            order.adddish("鸡蛋汤");
+            order.adddish("麻婆豆腐");
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        //订单填写完毕，将订单转交给服务员，服务员会将订单转交厨师
+        order.giveorder();
+        //厨师做菜，做好后服务员会来拿菜
+        chef.processMerchs(chef.getDishes());
+        //结账
+        order.accept(waiter);
+    }
 }
