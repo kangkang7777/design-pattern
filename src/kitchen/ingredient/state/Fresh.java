@@ -2,9 +2,9 @@ package kitchen.ingredient.state;
 import kitchen.ingredient.*;
 
 /**
- * ????
- * ???????????
- * @author ??
+ * 子类新鲜
+ * 此状态表示未用，未腐烂
+ * @author 谢康
  */
 public class Fresh implements State {
 
@@ -15,14 +15,14 @@ public class Fresh implements State {
     }
 
     /**
-     * @return ??
+     * @return 名称
      */
     public String toString() {
         return "新鲜";
     }
 
     /**
-     * ????
+     * 返回是否已用
      * 
      * @param ingredient 
      * @return false
@@ -31,7 +31,7 @@ public class Fresh implements State {
     public boolean isCooked(Ingredient ingredient){return false;}
 
     /**
-     * ?????
+     * 返回是否腐烂
      * 
      * @param ingredient 
      * @return false

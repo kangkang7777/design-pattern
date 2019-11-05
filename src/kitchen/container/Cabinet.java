@@ -5,10 +5,10 @@ import kitchen.ingredient.IngredientType;
 import java.util.*;
 
 /**
- * ????
- * ???????????????
- * ?????????
- * @author ??
+ * 子类橱柜
+ * 此类只可放入青菜、面粉、鸡蛋
+ * 设计模式：迭代器模式。
+ * @author 谢康
  */
 public class Cabinet extends Container {
 
@@ -28,14 +28,14 @@ public class Cabinet extends Container {
     }
 
     /**
-     * ????
+     * 返回实例
      */
     private static Cabinet instance;
 
     /**
-     * ????
+     * 返回单例
      * 
-     * @return ??
+     * @return 实例
      */
     public static synchronized Cabinet getInstance() {
         if (instance == null) {
@@ -45,7 +45,7 @@ public class Cabinet extends Container {
     }
 
     /**
-     * @return ??
+     * @return 名称
      */
     @Override
     public String getName()

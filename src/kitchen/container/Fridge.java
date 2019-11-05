@@ -5,10 +5,10 @@ import kitchen.ingredient.IngredientType;
 import java.util.*;
 
 /**
- * ????
- * ???????????
- * ?????????
- * @author ??
+ * 子类冰箱
+ * 此类只可放入豆腐、鱼
+ * 设计模式：迭代器模式。
+ * @author 谢康
  */
 public class Fridge extends Container {
 
@@ -27,12 +27,12 @@ public class Fridge extends Container {
     }
 
     /**
-     * ????
+     * 单例
      */
     private static Fridge instance;
 
     /**
-     * ????
+     * 返回单例
      * 
      * @return instance
      */
@@ -44,7 +44,7 @@ public class Fridge extends Container {
     }
 
     /**
-     * @return ??
+     * @return 名称
      */
     @Override
     public String getName()
