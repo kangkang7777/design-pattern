@@ -262,7 +262,7 @@ public class Chef implements ChefImp{
             mNewCooker.cook(mIngredient);
             priorityCount++;
         }
-            //mWaiter.serve(this);
+            mWaiter.serve(this);
     }
     
 }
