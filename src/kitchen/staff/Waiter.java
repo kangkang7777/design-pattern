@@ -6,25 +6,55 @@ import kitchen.staff.chef.Chef;
 
 
 import java.util.ArrayList;
-import java.util.List;
 
+/*
+* 类Waiter是多个设计模式的集合类
+* Proxy代理设计模式：Waiter类为Proxy的代理类
+*                   调用真实主题的处理方法时为真实主题进行预处理和后处理
+*
+* Mediator中介者设计模式：Waiter类时厨师（Chef）类与订单（Order）类的中介者
+*                        负责处理二者之间的信息传递
+*
+* Visitor访问者设计模式：
+*
+* 设计模式：Proxy，Mediator，Visitor
+* @author：卢朋艺，
+* */
 public class Waiter implements Visitor,WaiterInterface{
-    //厨师实例
+    /*
+    * 表示该服务员将要服务的厨师
+    * */
     private Chef mChef;
+
+    /*
+     * 表示该服务员将要服务的订单
+     * */
+    private Order mOrder;
     
-    //从Order拿到的list
+    /*
+    * 表示从订单中拿到的String类型的菜名列表
+    * */
     private ArrayList<String> lists;
 
-    //经Adaptor转化的dishlist
+    /*
+    * 表示将String类型的菜名转换为Dishes后的列表
+    * */
     private ArrayList<Dish> dishes;
 
-    //订单实例
-    private Order mOrder;
 
-    //真实的服务员
+    /*
+    * 表示真正去处理订单与厨师之间交互的真实服务员
+    * */
     private RealWaiter realWaiter = RealWaiter.getInstance();
 
+    /*
+    * 生成一个服务员实例
+    * */
     private static Waiter instance = new Waiter();
+
+    /*
+    *私有化构造函数以实现单例模式
+    * */
     private Waiter(){
         if (instance == null) {
             instance = this;
@@ -34,12 +64,16 @@ public class Waiter implements Visitor,WaiterInterface{
         }
     }
 
+    /*
+    * 返回服务员单例
+    * */
     public static Waiter getInstance(){
         return instance;
     }
 
-    //在厨师和客人类内部声明一个Waiter
-    //登记厨师和订单
+    /*
+    * 获取服务员将要服务的订单和厨师
+    * */
     public void register(Chef chef){
         mChef = chef;
         realWaiter.setmChef(chef);
@@ -53,71 +87,43 @@ public class Waiter implements Visitor,WaiterInterface{
         System.out.println("中介者模式：订单已获得服务员受理");
     }
 
-
-//    public void serve(){
-//        System.out.println("测试代理服务开始");
-//        realWaiter.serve();
-//        System.out.println("测试代理服务结束");
-//        if(lists != null){
-//            Adapter adapter = new Adapter();
-//            dishes = adapter.getDishes();
-//            System.out.println("订单开始传递给厨师");
-//            informChef();
-//        }
-//        else {
-//            System.out.println("菜单错误");
-//        }
-//    }
-
-    //为厨师服务的方法
-    //厨师做好菜后使用
+    /*
+    * 表示在厨师做好菜后为厨师服务的方法
+    * 真实服务员进行实际处理
+    * */
     @Override
     public void serve(Chef chef){
         System.out.println("中介者开始为厨师服务");
         System.out.println("代理模式 服务厨师开始");
+
         realWaiter.serve(chef);
+
         System.out.println("代理模式 服务厨师结束");
         System.out.println("中介者结束为厨师服务");
-        //visit(mOrder);
     }
-    //为客人服务的方法
-    //客人点单完成后使用
+
+    /*
+    * 表示在订单填写完成后为订单服务的方法
+    * 真实服务员进行实际处理
+    * 并从真实服务员处取到菜名的两种列表
+    * */
     @Override
     public void serve(Order order){
         System.out.println("中介者开始为订单服务");
         System.out.println("代理模式 服务订单开始");
+
         realWaiter.serve(order);
+
         System.out.println("代理模式 服务订单结束");
         System.out.println("中介者结束为订单服务");
+
         lists = realWaiter.getLists();
         dishes = realWaiter.getDishes();
-//         lists =  order.givemenu();
-//         if(lists != null) {
-//             Adapter adapter = new Adapter();
-//             dishes = adapter.getDishes();
-//             System.out.println("代理服务订单开始");
-//             realWaiter.serve(order);
-//             System.out.println("代理服务订单结束");
-//             //此步可将订单进一步处理再传递给厨师，测试visitor的时候注释掉
-////             System.out.println("订单开始传递给厨师");
-////             informChef();
-//         }
-//         else
-//             System.out.println("菜单有误");
-
     }
 
 
-//    //测试使用
-//    public void informChef(){
-//        mChef.setDishes(dishes);
-//        System.out.println("厨师已经拿到菜单");
-//        /*通知厨师的方法
-//          或是对订单进一步处理的方法 */
-//    }
-
     /*
-    * 以下两个函数为Lists的设置与获取
+    * 表示为Lists的设置与获取
     * */
     public void setLists(ArrayList<String> lists) {
         this.lists = lists;
@@ -127,29 +133,27 @@ public class Waiter implements Visitor,WaiterInterface{
         return lists;
     }
 
-    //为了测试visit获得order
-    public Order getmOrder() {
-        return mOrder;
-    }
 
+    /*
+    * 访问者模式
+    * 表示对菜品菜名和价格的访问
+    * */
     @Override
     public void visit(Dish dish) {
         System.out.println("visit " + dish.getName() + ":" + dish.getPrice() + "元");
     }
 
+    /*
+    * 访问者模式
+    * 表示对订单中所有菜品的访问并打印最后的总价
+    * */
     @Override
     public void visit(Order order) {
         System.out.println("visit order");
-        //测试waiter时注释以下部分
         for (Dish dish: dishes) {
             this.visit(dish);
             mOrder.addBill(dish.getPrice());
         }
         mOrder.pay();
     }
-
-    //测试时用
-    /*public ArrayList<Dish> getDishes(){
-        return dishes;
-    }*/
 }

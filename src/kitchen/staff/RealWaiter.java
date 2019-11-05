@@ -6,23 +6,47 @@ import kitchen.staff.chef.Chef;
 
 import java.util.ArrayList;
 
+
+/*
+* 类RealWaiter是用来实际处理厨师与订单之间信息传递的类
+* Proxy代理设计模式使用此类为真实主题
+* 设计模式： Proxy
+* @author 卢朋艺
+* */
 public class RealWaiter implements WaiterInterface {
-    //厨师实例
+    /*
+    * 表示真实服务员服务的厨师
+    * */
     private Chef mChef;
 
-    //lists
-    private ArrayList<String> lists;
-
-    //经Adaptor转化的dishlist
-    private ArrayList<Dish> dishes;
-
-    //订单实例
+    /*
+    * 表示真实服务员服务的订单
+    * */
     private Order mOrder;
 
-    //测试时从Waiter拿数据
+    /*
+    * 表示真实服务员的代理服务员
+    * */
     private  Waiter mWaiter = Waiter.getInstance();
 
+    /*
+    * 表示从订单中拿到的String类型的菜名列表
+    * */
+    private ArrayList<String> lists;
+
+    /*
+     * 表示将String类型的菜名转换为Dishes后的列表
+     * */
+    private ArrayList<Dish> dishes;
+
+    /*
+     * 生成一个服务员实例
+     * */
     private static RealWaiter instance = new RealWaiter();
+
+    /*
+     *私有化构造函数以实现单例模式
+     * */
     private RealWaiter(){
         if (instance == null) {
             instance = this;
@@ -31,89 +55,91 @@ public class RealWaiter implements WaiterInterface {
         }
     }
 
+    /*
+     * 返回服务员单例
+     * */
     public static RealWaiter getInstance(){
         return instance;
     }
 
 
-//    public void serve(){
-//        lists = mWaiter.getLists();
-//        if(lists != null){
-//            Adapter adapter = new Adapter();
-//            dishes = adapter.getDishes();
-//            System.out.println("订单开始传递给厨师");
-//            informChef();
-//        }
-//        else {
-//            System.out.println("菜单错误");
-//        }
-//    }
-
-    //为厨师服务的方法
-    //厨师做好菜后使用
+    /*
+    * 表示为厨师服务的方法
+    * */
     @Override
     public void serve(Chef chef){
         System.out.println("服务员已经拿到菜了");
     }
-    //为客人服务的方法
-    //客人点单完成后使用
+
+    /*
+    * 表示为订单服务的方法
+    * 从订单中获得String类型的菜名列表
+    * 使用Adaptor将列表转换为Dishes类型的列表
+    * 将Dishes类型的列表转交给厨师
+    * */
     @Override
     public void serve(Order order){
-        //正常使用时启用，测试Waiter时注释这行
-        lists =  order.givemenu();
-
-        //测试Waiter时启用，正常使用时注释下三行
-//        System.out.println("real success");
-//        if(mWaiter==null)System.out.println("null");
-//        ArrayList<String>lists = mWaiter.getLists();
+        lists = mOrder.givemenu();
 
         if(lists != null) {
             mWaiter.setLists(lists);
+
             Adapter adapter = new Adapter();
             dishes = adapter.getDishes();
-            //此步可将订单进一步处理再传递给厨师，测试visitor的时候注释掉
+
             System.out.println("订单开始传递给厨师");
             informChef();
         }
         else
             System.out.println("菜单有误");
-
     }
 
-
+    /*
+    *为真实服务员服务的厨师设置其Dishes类型的菜名列表
+    * */
     public void informChef(){
         mChef.setDishes(dishes);
         System.out.println("厨师已经拿到菜单");
-        /*通知厨师的方法
-          或是对订单进一步处理的方法 */
     }
 
-
-    public Chef getmChef() {
-        return mChef;
-    }
-
+    /*
+    * 设置真实服务员服务的厨师
+    * */
     public void setmChef(Chef mChef) {
         this.mChef = mChef;
     }
 
-    public Order getmOrder() {
-        return mOrder;
-    }
-
+    /*
+    * 设置真实服务员服务的订单
+    * */
     public void setmOrder(Order mOrder) {
         this.mOrder = mOrder;
     }
 
-    public ArrayList<String> getLists() {
-        return lists;
-    }
-
-    public ArrayList<Dish> getDishes() {
-        return dishes;
-    }
-
+    /*
+    * 设置真实服务员的代理服务员
+    * */
     public void setmWaiter(Waiter mWaiter) {
         this.mWaiter = mWaiter;
+    }
+
+    /*
+    * 返回真实服务员处理后的String的菜名列表
+    * */
+    public ArrayList<String> getLists() {
+        if(lists != null)
+            return lists;
+        else
+            return null;
+    }
+
+    /*
+     * 返回真实服务员处理后的Dishes的菜名列表
+     * */
+    public ArrayList<Dish> getDishes() {
+        if(dishes != null)
+            return dishes;
+        else
+            return null;
     }
 }
