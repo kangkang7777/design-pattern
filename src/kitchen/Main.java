@@ -509,4 +509,31 @@ public class Main {
         //结账
         order.accept(waiter);
     }
+        
+   
+/*
+ * design pattern: Observer、Iterator、State
+ * description: After 100 ticks, egg will be stale but flour will not. Firstly put these 2 ingredients into the cabinet
+ * and let time tick 99 times, and see what happens. Tick one more time, see if the egg is stale.
+ */
+    public static void observerTest()
+    {
+        Cabinet.getInstance().put(IngredientType.EGG,1);
+        Cabinet.getInstance().put(IngredientType.FLOUR,1);
+        Time.getInstance().update(99);
+        ContainerIterator it = Cabinet.getInstance().Iterator();
+        while(it.hasNext())
+        {
+            Ingredient ingredient = it.next();
+            System.out.println("冰箱中有：【"+ingredient.getName()+"】" + ingredient.getStateName());
+        }
+        Time.getInstance().update(1);
+        it = Cabinet.getInstance().Iterator();
+        while(it.hasNext())
+        {
+            Ingredient ingredient = it.next();
+            System.out.println("冰箱中有：【"+ingredient.getName()+"】"+ ingredient.getStateName());
+        }
+    }
+
 }
