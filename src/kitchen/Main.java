@@ -72,16 +72,16 @@ public class Main {
 //        }
 //        System.out.println("点餐完成！");
 //        o.giveorder();
+    //}
 
 
     /**
      * 对chef做菜功能进行测试：
-     * 包含单例，命令，抽象工厂模式
-     * @param args
+     * 包含单例，命令，抽象工厂,
+     * 责任链，中介者，代理模式
      * @throws CloneNotSupportedException
      */
-    public static void main(String[] args) throws CloneNotSupportedException {
-
+    private  static  void chefTest() throws CloneNotSupportedException {
         Chef chef=Chef.getInstance();
         Waiter waiter = Waiter.getInstance();
         waiter.register(chef);
@@ -97,13 +97,18 @@ public class Main {
         waiter.getDishes().get(0).accept(waiter);
         System.out.println("----访问订单----");
         order.accept(waiter);
+        System.out.println("-责任链模式测试开始-");
+        System.out.println("--命令模式测试开始--");
+        System.out.println("抽象工厂模式测试开始");
         chef.processMerchs(waiter.getDishes());
 
     }
 
+    public static void main(String[] args) throws CloneNotSupportedException {
 
+        chefTest();//对chef包进行测试，包含单例，命令，抽象工厂,责任链，中介者，代理模式
 
-    //}
+    }
 
 //这里是container与ingredient的测试
 /*
