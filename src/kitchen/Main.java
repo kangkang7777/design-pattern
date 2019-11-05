@@ -94,13 +94,14 @@ public class Main {
         waiter.serve(order);
         System.out.println("--测试访问者模式--");
         System.out.println("----访问菜品----");
-        waiter.getDishes().get(0).accept(waiter);
+        RealWaiter realWaiter=RealWaiter.getInstance();
+        realWaiter.getDishes().get(0).accept(waiter);
         System.out.println("----访问订单----");
         order.accept(waiter);
         System.out.println("-责任链模式测试开始-");
         System.out.println("--命令模式测试开始--");
         System.out.println("抽象工厂模式测试开始");
-        chef.processMerchs(waiter.getDishes());
+        chef.processMerchs(realWaiter.getDishes());
 
     }
 
